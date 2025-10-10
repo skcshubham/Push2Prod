@@ -90,6 +90,9 @@ export default function CTASection() {
                 _hover={{
                   transform: "translateY(-3px) scale(1.02)",
                   boxShadow: "2xl",
+                  _before: {
+                    left: "100%",
+                  },
                 }}
                 transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                 position="relative"
@@ -104,11 +107,6 @@ export default function CTASection() {
                   background:
                     "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
                   transition: "left 0.5s",
-                }}
-                _hover={{
-                  _before: {
-                    left: "100%",
-                  },
                 }}
               >
                 Create Profile

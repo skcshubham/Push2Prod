@@ -114,6 +114,9 @@ export default function FeatureCard({ icon, title, description, badge, color }: 
             transform: "scale(1.15) rotate(10deg)",
             bg: `${color}.100`,
             boxShadow: "lg",
+            _before: {
+              opacity: 0.3,
+            },
           }}
           transition="all 0.3s ease"
           position="relative"
@@ -127,11 +130,6 @@ export default function FeatureCard({ icon, title, description, badge, color }: 
             }.200)`,
             opacity: 0,
             transition: "opacity 0.3s ease",
-          }}
-          _hover={{
-            _before: {
-              opacity: 0.3,
-            },
           }}
         >
           <Icon as={IconComponent} boxSize={{ base: 10, md: 12 }} />
