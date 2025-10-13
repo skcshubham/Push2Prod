@@ -5,6 +5,34 @@ const bcrypt = require("bcrypt");
 
 const authRouter = express.Router();
 
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     summary: Create a new user account
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SignUpRequest'
+ *     responses:
+ *       200:
+ *         description: User created successfully
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: User added successfully.
+ *       400:
+ *         description: Invalid input or user already exists
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Error Occured [error message]
+ */
 authRouter.post("/signup", async (req, res) => {
   try {
     // validate signup data
@@ -29,6 +57,39 @@ authRouter.post("/signup", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Login to user account
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginRequest'
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         headers:
+ *           Set-Cookie:
+ *             schema:
+ *               type: string
+ *               example: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: User Login Successful.
+ *       400:
+ *         description: Invalid credentials
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Some Error Occured [error message]
+ */
 authRouter.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
@@ -56,6 +117,30 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /logout:
+ *   post:
+ *     summary: Logout from user account
+ *     tags: [Auth]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Logout Successful.
+ *       400:
+ *         description: Logout failed
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Error Occured while logging out.
+ */
 authRouter.post("/logout", async (req, res) => {
   try {
     res.cookie("token", null, {

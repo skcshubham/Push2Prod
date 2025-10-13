@@ -7,6 +7,31 @@ const userRouter = express.Router();
 
 const USER_SAFE_DATA = ["firstName", "lastName", "photoUrl", "about", "skills", "age", "gender"];
 
+/**
+ * @swagger
+ * /user/connections:
+ *   get:
+ *     summary: Get all accepted connections for the logged-in user
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: List of all connections
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ *       400:
+ *         description: No connections found or error occurred
+ */
 userRouter.get("/user/connections", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
@@ -46,6 +71,31 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /user/requests/received:
+ *   get:
+ *     summary: Get all received connection requests (interested status)
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: List of all received connection requests
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       400:
+ *         description: No requests found or error occurred
+ */
 userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
@@ -68,6 +118,45 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /user/feed:
+ *   get:
+ *     summary: Get feed of potential matches (users not yet connected with)
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *           maximum: 50
+ *         description: Number of users per page
+ *     responses:
+ *       200:
+ *         description: List of potential matches
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Error occurred
+ */
 userRouter.get("/user/feed", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;

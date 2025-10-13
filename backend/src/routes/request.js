@@ -5,6 +5,43 @@ const User = require("../models/user");
 
 const requestRouter = express.Router();
 
+/**
+ * @swagger
+ * /request/send/{status}/{toUserId}:
+ *   post:
+ *     summary: Send a connection request to another user
+ *     tags: [Requests]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: status
+ *         required: true
+ *         schema:
+ *           type: string
+ *           enum: [ignored, interested]
+ *         description: The status of the connection request
+ *       - in: path
+ *         name: toUserId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the user to send request to
+ *     responses:
+ *       200:
+ *         description: Connection request sent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *       400:
+ *         description: Invalid request or connection already exists
+ */
 requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
   try {
     const fromUserId = req.user._id;
@@ -52,6 +89,43 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
   }
 });
 
+/**
+ * @swagger
+ * /request/review/{status}/{requestId}:
+ *   post:
+ *     summary: Review a received connection request
+ *     tags: [Requests]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: status
+ *         required: true
+ *         schema:
+ *           type: string
+ *           enum: [accepted, rejected]
+ *         description: Accept or reject the request
+ *       - in: path
+ *         name: requestId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the connection request
+ *     responses:
+ *       200:
+ *         description: Connection request reviewed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *       400:
+ *         description: Invalid request or request not found
+ */
 requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, res) => {
   try {
     // logged in user is toUserId (receiever needs to accept the request)
