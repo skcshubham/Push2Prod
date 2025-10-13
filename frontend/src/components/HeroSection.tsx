@@ -12,10 +12,14 @@ import {
 } from "@chakra-ui/react";
 
 import { FaArrowRight } from "react-icons/fa";
+import FloatingEmojis from "./FloatingEmojis";
+import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
+import { useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
   const heroPadding = useBreakpointValue({ base: 12, md: 20 });
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -28,7 +32,6 @@ export default function HeroSection() {
       display="flex"
       alignItems="center"
     >
-      {/* Enhanced Background Pattern */}
       <Box
         position="absolute"
         top={0}
@@ -41,7 +44,6 @@ export default function HeroSection() {
         animation="float 20s ease-in-out infinite"
       />
 
-      {/* Gradient Overlays */}
       <Box
         position="absolute"
         top={0}
@@ -52,7 +54,6 @@ export default function HeroSection() {
         opacity={0.3}
       />
 
-      {/* Animated Gradient Orbs */}
       <Box
         position="absolute"
         top="-20%"
@@ -90,366 +91,10 @@ export default function HeroSection() {
         animation="float 12s ease-in-out infinite"
       />
 
-      {/* Floating Elements - Heart and Code Symbols */}
-      <Box
-        position="absolute"
-        top="15%"
-        left="8%"
-        w="50px"
-        h="50px"
-        bg="pink.200"
-        borderRadius="full"
-        opacity={0.2}
-        animation="float 6s ease-in-out infinite"
-        _before={{
-          content: '"💕"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "20px",
-        }}
-      />
-      <Box
-        position="absolute"
-        top="70%"
-        right="12%"
-        w="40px"
-        h="40px"
-        bg="purple.200"
-        borderRadius="full"
-        opacity={0.2}
-        animation="float 8s ease-in-out infinite reverse"
-        _before={{
-          content: '"💻"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "16px",
-        }}
-      />
-      <Box
-        position="absolute"
-        bottom="25%"
-        left="15%"
-        w="35px"
-        h="35px"
-        bg="blue.200"
-        borderRadius="full"
-        opacity={0.2}
-        animation="float 10s ease-in-out infinite"
-        _before={{
-          content: '"❤️"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "14px",
-        }}
-      />
-      <Box
-        position="absolute"
-        top="40%"
-        right="25%"
-        w="45px"
-        h="45px"
-        bg="white"
-        borderRadius="full"
-        opacity={0.15}
-        animation="float 7s ease-in-out infinite"
-        _before={{
-          content: '"⚡"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "18px",
-        }}
-      />
-
-      {/* Additional Floating Elements */}
-      <Box
-        position="absolute"
-        top="60%"
-        left="5%"
-        w="25px"
-        h="25px"
-        bg="pink.300"
-        borderRadius="full"
-        opacity={0.3}
-        animation="float 9s ease-in-out infinite"
-        _before={{
-          content: '"💖"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "12px",
-        }}
-      />
-      <Box
-        position="absolute"
-        top="20%"
-        right="8%"
-        w="30px"
-        h="30px"
-        bg="purple.300"
-        borderRadius="full"
-        opacity={0.25}
-        animation="float 11s ease-in-out infinite reverse"
-        _before={{
-          content: '"👨‍💻"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "14px",
-        }}
-      />
-      <Box
-        position="absolute"
-        bottom="40%"
-        right="20%"
-        w="28px"
-        h="28px"
-        bg="blue.300"
-        borderRadius="full"
-        opacity={0.2}
-        animation="float 13s ease-in-out infinite"
-        _before={{
-          content: '"💝"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "13px",
-        }}
-      />
-
-      {/* Subtle Grid Pattern */}
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        opacity={0.05}
-        backgroundImage="linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)"
-        backgroundSize="20px 20px"
-      />
-
-      {/* Particle System */}
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        opacity={0.4}
-        backgroundImage="radial-gradient(circle at 20% 20%, rgba(255, 182, 193, 0.3) 1px, transparent 1px), radial-gradient(circle at 80% 80%, rgba(221, 160, 221, 0.3) 1px, transparent 1px), radial-gradient(circle at 40% 60%, rgba(135, 206, 235, 0.3) 1px, transparent 1px), radial-gradient(circle at 60% 40%, rgba(255, 192, 203, 0.3) 1px, transparent 1px), radial-gradient(circle at 10% 90%, rgba(186, 85, 211, 0.3) 1px, transparent 1px), radial-gradient(circle at 90% 10%, rgba(255, 105, 180, 0.3) 1px, transparent 1px)"
-        backgroundSize="100px 100px, 80px 80px, 120px 120px, 90px 90px, 110px 110px, 70px 70px"
-        animation="float 25s ease-in-out infinite"
-      />
-
-      {/* Floating Code Symbols */}
-      <Box
-        position="absolute"
-        top="10%"
-        left="20%"
-        w="20px"
-        h="20px"
-        bg="transparent"
-        opacity={0.6}
-        animation="float 14s ease-in-out infinite"
-        _before={{
-          content: '"{ }"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "12px",
-          color: "white",
-          fontWeight: "bold",
-        }}
-      />
-      <Box
-        position="absolute"
-        top="80%"
-        left="30%"
-        w="18px"
-        h="18px"
-        bg="transparent"
-        opacity={0.5}
-        animation="float 16s ease-in-out infinite reverse"
-        _before={{
-          content: '"</>"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "10px",
-          color: "white",
-          fontWeight: "bold",
-        }}
-      />
-      <Box
-        position="absolute"
-        top="50%"
-        left="80%"
-        w="16px"
-        h="16px"
-        bg="transparent"
-        opacity={0.4}
-        animation="float 18s ease-in-out infinite"
-        _before={{
-          content: '"<>"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "9px",
-          color: "white",
-          fontWeight: "bold",
-        }}
-      />
-
-      {/* More Romantic Elements */}
-      <Box
-        position="absolute"
-        top="25%"
-        left="70%"
-        w="22px"
-        h="22px"
-        bg="transparent"
-        opacity={0.7}
-        animation="float 13s ease-in-out infinite"
-        _before={{
-          content: '"💘"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "16px",
-        }}
-      />
-      <Box
-        position="absolute"
-        top="75%"
-        right="30%"
-        w="24px"
-        h="24px"
-        bg="transparent"
-        opacity={0.6}
-        animation="float 15s ease-in-out infinite reverse"
-        _before={{
-          content: '"💕"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "18px",
-        }}
-      />
-      <Box
-        position="absolute"
-        top="35%"
-        right="60%"
-        w="20px"
-        h="20px"
-        bg="transparent"
-        opacity={0.5}
-        animation="float 17s ease-in-out infinite"
-        _before={{
-          content: '"💖"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "14px",
-        }}
-      />
-
-      {/* Tech Icons */}
-      <Box
-        position="absolute"
-        top="65%"
-        left="25%"
-        w="26px"
-        h="26px"
-        bg="transparent"
-        opacity={0.4}
-        animation="float 19s ease-in-out infinite"
-        _before={{
-          content: '"⚙️"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "16px",
-        }}
-      />
-      <Box
-        position="absolute"
-        top="45%"
-        right="40%"
-        w="24px"
-        h="24px"
-        bg="transparent"
-        opacity={0.3}
-        animation="float 21s ease-in-out infinite reverse"
-        _before={{
-          content: '"🔧"',
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "15px",
-        }}
-      />
-
-      {/* Additional Gradient Blobs */}
-      <Box
-        position="absolute"
-        top="5%"
-        right="30%"
-        w="200px"
-        h="200px"
-        bg="linear-gradient(45deg, rgba(255, 182, 193, 0.1), rgba(221, 160, 221, 0.1))"
-        borderRadius="full"
-        opacity={0.3}
-        filter="blur(40px)"
-        animation="float 22s ease-in-out infinite"
-      />
-      <Box
-        position="absolute"
-        bottom="5%"
-        left="30%"
-        w="180px"
-        h="180px"
-        bg="linear-gradient(45deg, rgba(135, 206, 235, 0.1), rgba(255, 192, 203, 0.1))"
-        borderRadius="full"
-        opacity={0.25}
-        filter="blur(35px)"
-        animation="float 24s ease-in-out infinite reverse"
-      />
-
-      {/* Animated Lines */}
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        opacity={0.1}
-        backgroundImage="linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%), linear-gradient(-45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)"
-        backgroundSize="100px 100px, 100px 100px"
-        animation="float 30s linear infinite"
-      />
+      <FloatingEmojis />
 
       <Container maxW="container.lg" textAlign="center" px={{ base: 4, md: 6 }} position="relative">
         <VStack gap={{ base: 1, md: 2 }}>
-          {/* Enhanced Badge */}
           <Box
             position="relative"
             _before={{
@@ -479,11 +124,10 @@ export default function HeroSection() {
               backdropFilter="blur(10px)"
               boxShadow="0 8px 32px rgba(0, 0, 0, 0.1)"
             >
-              💕 Where Code Meets Romance
+              {LANDING_PAGE_CONSTANTS.HERO.BADGE}
             </Badge>
           </Box>
 
-          {/* Enhanced Heading Section */}
           <VStack gap={6}>
             <Heading
               as="h1"
@@ -514,7 +158,7 @@ export default function HeroSection() {
                 textShadow="0 2px 4px rgba(0, 0, 0, 0.5)"
                 fontWeight="black"
               >
-                Find Your Perfect
+                {LANDING_PAGE_CONSTANTS.HERO.TITLE_LINE_1}
               </Box>
               <Box
                 as="span"
@@ -524,7 +168,7 @@ export default function HeroSection() {
                 fontWeight="extrabold"
                 textShadow="0 2px 4px rgba(0, 0, 0, 0.5)"
               >
-                Coding Partner
+                {LANDING_PAGE_CONSTANTS.HERO.TITLE_LINE_2}
               </Box>
             </Heading>
 
@@ -550,12 +194,10 @@ export default function HeroSection() {
                 borderRadius: "full",
               }}
             >
-              Swipe right on developers who share your coding passion, tech stack, and dreams. Build
-              meaningful connections that go beyond just code.
+              {LANDING_PAGE_CONSTANTS.HERO.DESCRIPTION}
             </Text>
           </VStack>
 
-          {/* Enhanced CTA Section */}
           <VStack gap={6} w={{ base: "full", md: "auto" }}>
             <HStack
               marginTop={2}
@@ -576,6 +218,7 @@ export default function HeroSection() {
                 fontWeight="bold"
                 fontSize={{ base: "md", md: "lg" }}
                 animation="fadeInUp 1s ease-out 0.4s both"
+                onClick={() => navigate("/signup")}
                 _hover={{
                   transform: "translateY(-4px) scale(1.03)",
                   boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)",
@@ -602,7 +245,7 @@ export default function HeroSection() {
                   transition: "left 0.6s",
                 }}
               >
-                Start Swiping
+                {LANDING_PAGE_CONSTANTS.HERO.PRIMARY_CTA}
                 <Icon as={FaArrowRight} ml={3} />
               </Button>
               <Button
@@ -628,11 +271,10 @@ export default function HeroSection() {
                 borderRadius="xl"
                 backdropFilter="blur(10px)"
               >
-                View Code
+                {LANDING_PAGE_CONSTANTS.HERO.SECONDARY_CTA}
               </Button>
             </HStack>
 
-            {/* Trust Indicators */}
             <HStack gap={8} mt={4} wrap="wrap" justify="center" opacity={0.8}>
               <HStack gap={2}>
                 <Box
@@ -643,7 +285,7 @@ export default function HeroSection() {
                   animation="pulse 2s ease-in-out infinite"
                 />
                 <Text fontSize="sm" fontWeight="medium">
-                  Free to join
+                  {LANDING_PAGE_CONSTANTS.HERO.TRUST_INDICATORS.FREE}
                 </Text>
               </HStack>
               <HStack gap={2}>
@@ -655,7 +297,7 @@ export default function HeroSection() {
                   animation="pulse 2s ease-in-out infinite 0.5s"
                 />
                 <Text fontSize="sm" fontWeight="medium">
-                  Verified profiles
+                  {LANDING_PAGE_CONSTANTS.HERO.TRUST_INDICATORS.VERIFIED}
                 </Text>
               </HStack>
               <HStack gap={2}>
@@ -667,7 +309,7 @@ export default function HeroSection() {
                   animation="pulse 2s ease-in-out infinite 1s"
                 />
                 <Text fontSize="sm" fontWeight="medium">
-                  Real connections
+                  {LANDING_PAGE_CONSTANTS.HERO.TRUST_INDICATORS.CONNECTIONS}
                 </Text>
               </HStack>
             </HStack>

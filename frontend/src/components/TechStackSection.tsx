@@ -8,37 +8,11 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
+import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
 
 export default function TechStackSection() {
   const sectionPadding = useBreakpointValue({ base: 12, md: 16 });
-
-  const technologies = [
-    {
-      name: "React",
-      description: "Frontend Framework",
-      details: "TypeScript + Vite",
-      animationDelay: "0s",
-    },
-    {
-      name: "Node.js",
-      description: "Backend Runtime",
-      details: "Express.js + APIs",
-      animationDelay: "0.2s",
-    },
-    {
-      name: "MongoDB",
-      description: "Database",
-      details: "NoSQL + Scalable",
-      animationDelay: "0.4s",
-    },
-    {
-      name: "REST APIs",
-      description: "Backend Services",
-      details: "Authentication & CRUD",
-      animationDelay: "0.8s",
-    },
-  ];
 
   return (
     <Box
@@ -48,7 +22,6 @@ export default function TechStackSection() {
       position="relative"
       overflow="hidden"
     >
-      {/* Enhanced Background Pattern */}
       <Box
         position="absolute"
         top={0}
@@ -61,7 +34,6 @@ export default function TechStackSection() {
         animation="float 30s linear infinite"
       />
 
-      {/* Floating Stats Elements */}
       <Box
         position="absolute"
         top="20%"
@@ -89,10 +61,10 @@ export default function TechStackSection() {
         <VStack gap={{ base: 8, md: 12 }} align="center">
           <Box textAlign="center">
             <Heading size={{ base: "lg", md: "xl" }} mb={4}>
-              Built With Modern Technologies
+              {LANDING_PAGE_CONSTANTS.TECH_STACK.TITLE}
             </Heading>
             <Text fontSize={{ base: "md", md: "lg" }} opacity={0.9}>
-              A full-stack application demonstrating current web development best practices
+              {LANDING_PAGE_CONSTANTS.TECH_STACK.DESCRIPTION}
             </Text>
           </Box>
 
@@ -103,7 +75,7 @@ export default function TechStackSection() {
             justifyItems="center"
             mx="auto"
           >
-            {technologies.map((tech, index) => (
+            {LANDING_PAGE_CONSTANTS.TECH_STACK.TECHNOLOGIES.map((tech, index) => (
               <VStack key={index} gap={2}>
                 <Heading size={{ base: "2xl", md: "3xl" }} color={THEME_CONSTANTS.COLORS.WHITE}>
                   {tech.name}

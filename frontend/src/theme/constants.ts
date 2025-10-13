@@ -1,6 +1,4 @@
-// Theme constants for consistent usage across components
 export const THEME_CONSTANTS = {
-  // Brand colors
   COLORS: {
     PRIMARY: "purple.600",
     PRIMARY_HOVER: "purple.700",
@@ -15,7 +13,6 @@ export const THEME_CONSTANTS = {
     WHITE: "white",
   },
 
-  // Spacing
   SPACING: {
     XS: 2,
     SM: 4,
@@ -26,7 +23,6 @@ export const THEME_CONSTANTS = {
     SECTION: 20,
   },
 
-  // Border radius
   RADIUS: {
     SM: "sm",
     MD: "md",
@@ -35,7 +31,6 @@ export const THEME_CONSTANTS = {
     FULL: "full",
   },
 
-  // Shadows
   SHADOWS: {
     SM: "sm",
     MD: "md",
@@ -43,14 +38,12 @@ export const THEME_CONSTANTS = {
     XL: "xl",
   },
 
-  // Gradients
   GRADIENTS: {
     HERO: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     PRIMARY: "linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)",
     SECONDARY: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)",
   },
 
-  // Font sizes
   FONT_SIZES: {
     SM: "sm",
     MD: "md",
@@ -61,7 +54,6 @@ export const THEME_CONSTANTS = {
     "4XL": "4xl",
   },
 
-  // Component sizes
   SIZES: {
     SM: "sm",
     MD: "md",
@@ -69,7 +61,6 @@ export const THEME_CONSTANTS = {
     XL: "xl",
   },
 
-  // Breakpoints
   BREAKPOINTS: {
     MOBILE: "base",
     TABLET: "md",

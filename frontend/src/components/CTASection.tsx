@@ -11,10 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { FaArrowRight, FaGithub, FaHeart, FaUsers } from "react-icons/fa";
 
+import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
+import { useNavigate } from "react-router-dom";
 
 export default function CTASection() {
   const sectionPadding = useBreakpointValue({ base: 12, md: 20 });
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -23,7 +26,6 @@ export default function CTASection() {
       position="relative"
       overflow="hidden"
     >
-      {/* Enhanced Background Elements */}
       <Box
         position="absolute"
         top="20%"
@@ -66,7 +68,7 @@ export default function CTASection() {
         <VStack gap={{ base: 6, md: 8 }}>
           <VStack gap={4}>
             <Heading size={{ base: "lg", md: "xl" }} color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
-              Ready to Swipe Right on Your Coding Soulmate?
+              {LANDING_PAGE_CONSTANTS.CTA.TITLE}
             </Heading>
             <Text
               fontSize={{ base: "md", md: "lg" }}
@@ -74,8 +76,7 @@ export default function CTASection() {
               maxW="xl"
               lineHeight="tall"
             >
-              Join thousands of developers who have already found their perfect coding partners.
-              Your next great collaboration is just a swipe away.
+              {LANDING_PAGE_CONSTANTS.CTA.DESCRIPTION}
             </Text>
           </VStack>
 
@@ -87,6 +88,7 @@ export default function CTASection() {
                 w={{ base: "full", md: "auto" }}
                 px={8}
                 fontWeight="semibold"
+                onClick={() => navigate("/signup")}
                 _hover={{
                   transform: "translateY(-3px) scale(1.02)",
                   boxShadow: "2xl",
@@ -109,7 +111,7 @@ export default function CTASection() {
                   transition: "left 0.5s",
                 }}
               >
-                Create Profile
+                {LANDING_PAGE_CONSTANTS.CTA.PRIMARY_CTA}
                 <Icon as={FaArrowRight} ml={2} />
               </Button>
               <Button
@@ -126,28 +128,27 @@ export default function CTASection() {
                 }}
                 transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
               >
-                Learn More
+                {LANDING_PAGE_CONSTANTS.CTA.SECONDARY_CTA}
               </Button>
             </HStack>
 
-            {/* Trust Indicators */}
             <HStack gap={8} mt={6} wrap="wrap" justify="center">
               <HStack gap={2}>
                 <Icon as={FaUsers} color="green.500" />
                 <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                  Free to swipe
+                  {LANDING_PAGE_CONSTANTS.CTA.TRUST_INDICATORS.FREE}
                 </Text>
               </HStack>
               <HStack gap={2}>
                 <Icon as={FaGithub} color="gray.600" />
                 <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                  Verified profiles
+                  {LANDING_PAGE_CONSTANTS.CTA.TRUST_INDICATORS.VERIFIED}
                 </Text>
               </HStack>
               <HStack gap={2}>
                 <Icon as={FaHeart} color="red.500" />
                 <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                  Real connections
+                  {LANDING_PAGE_CONSTANTS.CTA.TRUST_INDICATORS.CONNECTIONS}
                 </Text>
               </HStack>
             </HStack>

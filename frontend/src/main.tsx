@@ -14,7 +14,6 @@ const system = createSystem({
   cssVarsRoot: ":host, :root",
 });
 
-// Add custom CSS animations
 const style = document.createElement("style");
 style.textContent = `
   @keyframes float {

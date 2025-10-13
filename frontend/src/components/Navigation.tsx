@@ -13,7 +13,9 @@ import {
 } from "@chakra-ui/react";
 
 import { FaBars } from "react-icons/fa";
+import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
+import { useNavigate } from "react-router-dom";
 
 interface NavigationProps {
   scrollToSection: (sectionId: string) => void;
@@ -21,10 +23,10 @@ interface NavigationProps {
 
 export default function Navigation({ scrollToSection }: NavigationProps) {
   const { open, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   return (
     <>
-      {/* Navigation */}
       <Box
         bg={THEME_CONSTANTS.COLORS.WHITE}
         boxShadow={THEME_CONSTANTS.SHADOWS.SM}
@@ -35,10 +37,9 @@ export default function Navigation({ scrollToSection }: NavigationProps) {
         <Container maxW="container.xl" py={THEME_CONSTANTS.SPACING.SM}>
           <Flex justify="space-between" align="center">
             <Heading size="lg" color={THEME_CONSTANTS.COLORS.PRIMARY}>
-              🧑🏻‍💻 Push2Prod
+              {LANDING_PAGE_CONSTANTS.APP.LOGO}
             </Heading>
 
-            {/* Desktop Navigation */}
             <HStack gap={THEME_CONSTANTS.SPACING.MD} display={{ base: "none", md: "flex" }}>
               <Text
                 color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
@@ -46,7 +47,7 @@ export default function Navigation({ scrollToSection }: NavigationProps) {
                 _hover={{ color: THEME_CONSTANTS.COLORS.PRIMARY }}
                 onClick={() => scrollToSection("features")}
               >
-                Features
+                {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.FEATURES}
               </Text>
               <Text
                 color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
@@ -54,17 +55,21 @@ export default function Navigation({ scrollToSection }: NavigationProps) {
                 _hover={{ color: THEME_CONSTANTS.COLORS.PRIMARY }}
                 onClick={() => scrollToSection("pricing")}
               >
-                Pricing
+                {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PRICING}
               </Text>
-              <Button colorScheme="purple" variant="outline" size="sm">
-                Sign In
+              <Button
+                colorScheme="purple"
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/signin")}
+              >
+                {LANDING_PAGE_CONSTANTS.NAVIGATION.BUTTONS.SIGN_IN}
               </Button>
-              <Button colorScheme="purple" size="sm">
-                Create Profile
+              <Button colorScheme="purple" size="sm" onClick={() => navigate("/signup")}>
+                {LANDING_PAGE_CONSTANTS.NAVIGATION.BUTTONS.CREATE_PROFILE}
               </Button>
             </HStack>
 
-            {/* Mobile Menu Button */}
             <IconButton
               display={{ base: "flex", md: "none" }}
               onClick={onOpen}
@@ -77,13 +82,12 @@ export default function Navigation({ scrollToSection }: NavigationProps) {
         </Container>
       </Box>
 
-      {/* Mobile Navigation Drawer */}
       <Drawer.Root open={open} onOpenChange={onClose}>
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content>
             <Drawer.CloseTrigger />
-            <Drawer.Header>Menu</Drawer.Header>
+            <Drawer.Header>{LANDING_PAGE_CONSTANTS.NAVIGATION.MOBILE_MENU_TITLE}</Drawer.Header>
             <Drawer.Body>
               <VStack gap={4} align="stretch">
                 <Text
@@ -92,7 +96,7 @@ export default function Navigation({ scrollToSection }: NavigationProps) {
                   _hover={{ color: THEME_CONSTANTS.COLORS.PRIMARY }}
                   onClick={() => scrollToSection("features")}
                 >
-                  Features
+                  {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.FEATURES}
                 </Text>
                 <Text
                   color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
@@ -100,13 +104,28 @@ export default function Navigation({ scrollToSection }: NavigationProps) {
                   _hover={{ color: THEME_CONSTANTS.COLORS.PRIMARY }}
                   onClick={() => scrollToSection("pricing")}
                 >
-                  Pricing
+                  {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PRICING}
                 </Text>
-                <Button colorScheme="purple" variant="outline" w="full">
-                  Sign In
+                <Button
+                  colorScheme="purple"
+                  variant="outline"
+                  w="full"
+                  onClick={() => {
+                    navigate("/signin");
+                    onClose();
+                  }}
+                >
+                  {LANDING_PAGE_CONSTANTS.NAVIGATION.BUTTONS.SIGN_IN}
                 </Button>
-                <Button colorScheme="purple" w="full">
-                  Create Profile
+                <Button
+                  colorScheme="purple"
+                  w="full"
+                  onClick={() => {
+                    navigate("/signup");
+                    onClose();
+                  }}
+                >
+                  {LANDING_PAGE_CONSTANTS.NAVIGATION.BUTTONS.CREATE_PROFILE}
                 </Button>
               </VStack>
             </Drawer.Body>

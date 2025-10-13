@@ -1,4 +1,3 @@
-// Theme configuration for Push2Prod
 export const theme = {
   colors: {
     brand: {
@@ -119,7 +118,6 @@ export const theme = {
   },
 };
 
-// Common component styles
 export const componentStyles = {
   button: {
     primary: {

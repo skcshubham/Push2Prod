@@ -10,37 +10,11 @@ import {
 } from "@chakra-ui/react";
 
 import FeatureCard from "./FeatureCard";
+import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
 
 export default function FeaturesSection() {
   const sectionPadding = useBreakpointValue({ base: 12, md: 20 });
-
-  const features = [
-    {
-      icon: "FaCode",
-      title: "Tech Stack Matching",
-      description:
-        "Connect with developers who use the same technologies and frameworks you love. Find your perfect coding partner based on shared tech interests.",
-      badge: "✨ React • Node.js • MongoDB • TypeScript",
-      color: "purple",
-    },
-    {
-      icon: "FaHeart",
-      title: "Smart Compatibility",
-      description:
-        "Our advanced algorithm matches you based on coding preferences, project interests, and personality traits. Find developers who truly complement your style.",
-      badge: "🧠 AI-Powered Matching Algorithm",
-      color: "red",
-    },
-    {
-      icon: "FaRocket",
-      title: "Project Collaboration",
-      description:
-        "Find coding partners for hackathons, open source projects, and side hustles. Build amazing things together with like-minded developers through real-time chat and collaboration.",
-      badge: "🚀 Hackathons • Open Source • Side Projects",
-      color: "blue",
-    },
-  ];
 
   return (
     <Box
@@ -50,7 +24,6 @@ export default function FeaturesSection() {
       position="relative"
       overflow="hidden"
     >
-      {/* Enhanced Background Elements */}
       <Box
         position="absolute"
         top="10%"
@@ -103,7 +76,7 @@ export default function FeaturesSection() {
               mb={4}
               animation="pulse 3s ease-in-out infinite"
             >
-              🚀 Powerful Features
+              {LANDING_PAGE_CONSTANTS.FEATURES.BADGE}
             </Badge>
             <Heading
               size={{ base: "lg", md: "xl" }}
@@ -111,7 +84,7 @@ export default function FeaturesSection() {
               bgGradient="linear(to-r, purple.600, blue.600)"
               bgClip="text"
             >
-              Built for the Developer Community
+              {LANDING_PAGE_CONSTANTS.FEATURES.TITLE}
             </Heading>
             <Text
               fontSize={{ base: "md", md: "lg" }}
@@ -119,13 +92,12 @@ export default function FeaturesSection() {
               maxW="2xl"
               lineHeight="tall"
             >
-              Every feature is designed with developers in mind, from GitHub integration to tech
-              stack matching. Experience the future of developer networking.
+              {LANDING_PAGE_CONSTANTS.FEATURES.DESCRIPTION}
             </Text>
           </Box>
 
           <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: 6, md: 8 }}>
-            {features.map((feature, index) => (
+            {LANDING_PAGE_CONSTANTS.FEATURES.ITEMS.map((feature, index) => (
               <FeatureCard key={index} {...feature} />
             ))}
           </SimpleGrid>

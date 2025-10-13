@@ -13,10 +13,19 @@ import {
 } from "@chakra-ui/react";
 import { FaCode, FaGithub, FaHeart, FaRocket, FaUsers } from "react-icons/fa";
 
+import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
 
 export default function PricingSection() {
   const sectionPadding = useBreakpointValue({ base: 12, md: 20 });
+
+  const iconMap = {
+    FaCode,
+    FaGithub,
+    FaHeart,
+    FaRocket,
+    FaUsers,
+  };
 
   return (
     <Box
@@ -26,7 +35,6 @@ export default function PricingSection() {
       position="relative"
       overflow="hidden"
     >
-      {/* Background Elements */}
       <Box
         position="absolute"
         top="10%"
@@ -63,22 +71,21 @@ export default function PricingSection() {
               fontWeight="semibold"
               mb={4}
             >
-              💰 Pricing Plans
+              {LANDING_PAGE_CONSTANTS.PRICING.BADGE}
             </Badge>
             <Heading size={{ base: "lg", md: "xl" }} mb={THEME_CONSTANTS.SPACING.SM}>
-              Simple, Transparent Pricing
+              {LANDING_PAGE_CONSTANTS.PRICING.TITLE}
             </Heading>
             <Text
               fontSize={{ base: "md", md: "lg" }}
               color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
               maxW="2xl"
             >
-              Choose the plan that fits your coding journey. No hidden fees, no surprises.
+              {LANDING_PAGE_CONSTANTS.PRICING.DESCRIPTION}
             </Text>
           </Box>
 
           <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: 6, md: 8 }}>
-            {/* Free Plan */}
             <Box
               bg={THEME_CONSTANTS.COLORS.WHITE}
               borderRadius={THEME_CONSTANTS.RADIUS.LG}
@@ -97,50 +104,43 @@ export default function PricingSection() {
               <VStack gap={4} align="stretch">
                 <Box>
                   <Heading size="md" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
-                    Free
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.FREE.NAME}
                   </Heading>
                   <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY} fontSize="sm">
-                    Perfect for getting started
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.FREE.DESCRIPTION}
                   </Text>
                 </Box>
 
                 <Box>
                   <Text fontSize="3xl" fontWeight="bold" color={THEME_CONSTANTS.COLORS.PRIMARY}>
-                    $0
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.FREE.PRICE}
                   </Text>
                   <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY} fontSize="sm">
-                    forever
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.FREE.PERIOD}
                   </Text>
                 </Box>
 
                 <VStack gap={3} align="stretch">
-                  <HStack gap={2}>
-                    <Icon as={FaCode} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Basic profile matching
-                    </Text>
-                  </HStack>
-                  <HStack gap={2}>
-                    <Icon as={FaHeart} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Up to 10 matches per day
-                    </Text>
-                  </HStack>
-                  <HStack gap={2}>
-                    <Icon as={FaUsers} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Community access
-                    </Text>
-                  </HStack>
+                  {LANDING_PAGE_CONSTANTS.PRICING.PLANS.FREE.FEATURES.map((feature, idx) => (
+                    <HStack key={idx} gap={2}>
+                      <Icon
+                        as={iconMap[feature.icon as keyof typeof iconMap]}
+                        color="green.500"
+                        boxSize={4}
+                      />
+                      <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                        {feature.text}
+                      </Text>
+                    </HStack>
+                  ))}
                 </VStack>
 
                 <Button variant="outline" colorScheme="purple" w="full" mt={4}>
-                  Get Started Free
+                  {LANDING_PAGE_CONSTANTS.PRICING.PLANS.FREE.CTA}
                 </Button>
               </VStack>
             </Box>
 
-            {/* Pro Plan */}
             <Box
               bg={THEME_CONSTANTS.COLORS.WHITE}
               borderRadius={THEME_CONSTANTS.RADIUS.LG}
@@ -177,62 +177,49 @@ export default function PricingSection() {
                 px={3}
                 py={1}
               >
-                Most Popular
+                {LANDING_PAGE_CONSTANTS.PRICING.PLANS.PRO.BADGE}
               </Badge>
 
               <VStack gap={4} align="stretch">
                 <Box>
                   <Heading size="md" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
-                    Pro
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.PRO.NAME}
                   </Heading>
                   <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY} fontSize="sm">
-                    For serious developers
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.PRO.DESCRIPTION}
                   </Text>
                 </Box>
 
                 <Box>
                   <Text fontSize="3xl" fontWeight="bold" color={THEME_CONSTANTS.COLORS.PRIMARY}>
-                    $19
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.PRO.PRICE}
                   </Text>
                   <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY} fontSize="sm">
-                    per month
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.PRO.PERIOD}
                   </Text>
                 </Box>
 
                 <VStack gap={3} align="stretch">
-                  <HStack gap={2}>
-                    <Icon as={FaCode} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Advanced matching algorithm
-                    </Text>
-                  </HStack>
-                  <HStack gap={2}>
-                    <Icon as={FaHeart} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Unlimited matches
-                    </Text>
-                  </HStack>
-                  <HStack gap={2}>
-                    <Icon as={FaRocket} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Priority support
-                    </Text>
-                  </HStack>
-                  <HStack gap={2}>
-                    <Icon as={FaGithub} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      GitHub integration
-                    </Text>
-                  </HStack>
+                  {LANDING_PAGE_CONSTANTS.PRICING.PLANS.PRO.FEATURES.map((feature, idx) => (
+                    <HStack key={idx} gap={2}>
+                      <Icon
+                        as={iconMap[feature.icon as keyof typeof iconMap]}
+                        color="green.500"
+                        boxSize={4}
+                      />
+                      <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                        {feature.text}
+                      </Text>
+                    </HStack>
+                  ))}
                 </VStack>
 
                 <Button colorScheme="purple" w="full" mt={4}>
-                  Start Pro Trial
+                  {LANDING_PAGE_CONSTANTS.PRICING.PLANS.PRO.CTA}
                 </Button>
               </VStack>
             </Box>
 
-            {/* Enterprise Plan */}
             <Box
               bg={THEME_CONSTANTS.COLORS.WHITE}
               borderRadius={THEME_CONSTANTS.RADIUS.LG}
@@ -251,51 +238,39 @@ export default function PricingSection() {
               <VStack gap={4} align="stretch">
                 <Box>
                   <Heading size="md" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
-                    Enterprise
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.ENTERPRISE.NAME}
                   </Heading>
                   <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY} fontSize="sm">
-                    For teams and companies
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.ENTERPRISE.DESCRIPTION}
                   </Text>
                 </Box>
 
                 <Box>
                   <Text fontSize="3xl" fontWeight="bold" color={THEME_CONSTANTS.COLORS.PRIMARY}>
-                    Custom
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.ENTERPRISE.PRICE}
                   </Text>
                   <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY} fontSize="sm">
-                    contact us
+                    {LANDING_PAGE_CONSTANTS.PRICING.PLANS.ENTERPRISE.PERIOD}
                   </Text>
                 </Box>
 
                 <VStack gap={3} align="stretch">
-                  <HStack gap={2}>
-                    <Icon as={FaCode} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Custom matching criteria
-                    </Text>
-                  </HStack>
-                  <HStack gap={2}>
-                    <Icon as={FaUsers} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Team collaboration tools
-                    </Text>
-                  </HStack>
-                  <HStack gap={2}>
-                    <Icon as={FaRocket} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      Dedicated support
-                    </Text>
-                  </HStack>
-                  <HStack gap={2}>
-                    <Icon as={FaGithub} color="green.500" boxSize={4} />
-                    <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      API access
-                    </Text>
-                  </HStack>
+                  {LANDING_PAGE_CONSTANTS.PRICING.PLANS.ENTERPRISE.FEATURES.map((feature, idx) => (
+                    <HStack key={idx} gap={2}>
+                      <Icon
+                        as={iconMap[feature.icon as keyof typeof iconMap]}
+                        color="green.500"
+                        boxSize={4}
+                      />
+                      <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                        {feature.text}
+                      </Text>
+                    </HStack>
+                  ))}
                 </VStack>
 
                 <Button variant="outline" colorScheme="purple" w="full" mt={4}>
-                  Contact Sales
+                  {LANDING_PAGE_CONSTANTS.PRICING.PLANS.ENTERPRISE.CTA}
                 </Button>
               </VStack>
             </Box>

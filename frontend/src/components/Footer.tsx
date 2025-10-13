@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
+import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
 
 export default function Footer() {
@@ -26,7 +27,6 @@ export default function Footer() {
       position="relative"
       overflow="hidden"
     >
-      {/* Footer Background Pattern */}
       <Box
         position="absolute"
         top={0}
@@ -43,14 +43,14 @@ export default function Footer() {
           <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 6, md: 8 }} w="full">
             <VStack align="start" gap={4}>
               <Heading size="md" color="purple.400">
-                Push2Prod
+                {LANDING_PAGE_CONSTANTS.APP.NAME}
               </Heading>
               <Text color={THEME_CONSTANTS.COLORS.TEXT_MUTED} fontSize={{ base: "sm", md: "md" }}>
-                Connecting developers through code, creativity, and collaboration.
+                {LANDING_PAGE_CONSTANTS.APP.TAGLINE}
               </Text>
               <HStack gap={3}>
                 <IconButton
-                  aria-label="GitHub"
+                  aria-label={LANDING_PAGE_CONSTANTS.FOOTER.SOCIAL_MEDIA.GITHUB}
                   size="sm"
                   variant="ghost"
                   color="gray.400"
@@ -64,7 +64,7 @@ export default function Footer() {
                   <FaGithub />
                 </IconButton>
                 <IconButton
-                  aria-label="Twitter"
+                  aria-label={LANDING_PAGE_CONSTANTS.FOOTER.SOCIAL_MEDIA.TWITTER}
                   size="sm"
                   variant="ghost"
                   color="gray.400"
@@ -78,7 +78,7 @@ export default function Footer() {
                   <FaTwitter />
                 </IconButton>
                 <IconButton
-                  aria-label="LinkedIn"
+                  aria-label={LANDING_PAGE_CONSTANTS.FOOTER.SOCIAL_MEDIA.LINKEDIN}
                   size="sm"
                   variant="ghost"
                   color="gray.400"
@@ -95,87 +95,48 @@ export default function Footer() {
             </VStack>
 
             <VStack align="start" gap={3}>
-              <Heading size="sm">Product</Heading>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Features
-              </Text>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Pricing
-              </Text>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                API
-              </Text>
+              <Heading size="sm">{LANDING_PAGE_CONSTANTS.FOOTER.SECTIONS.PRODUCT.TITLE}</Heading>
+              {LANDING_PAGE_CONSTANTS.FOOTER.SECTIONS.PRODUCT.LINKS.map((link, idx) => (
+                <Text
+                  key={idx}
+                  color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
+                  cursor="pointer"
+                  _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
+                  fontSize={{ base: "sm", md: "md" }}
+                >
+                  {link}
+                </Text>
+              ))}
             </VStack>
 
             <VStack align="start" gap={3}>
-              <Heading size="sm">Company</Heading>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                About
-              </Text>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Blog
-              </Text>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Careers
-              </Text>
+              <Heading size="sm">{LANDING_PAGE_CONSTANTS.FOOTER.SECTIONS.COMPANY.TITLE}</Heading>
+              {LANDING_PAGE_CONSTANTS.FOOTER.SECTIONS.COMPANY.LINKS.map((link, idx) => (
+                <Text
+                  key={idx}
+                  color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
+                  cursor="pointer"
+                  _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
+                  fontSize={{ base: "sm", md: "md" }}
+                >
+                  {link}
+                </Text>
+              ))}
             </VStack>
 
             <VStack align="start" gap={3}>
-              <Heading size="sm">Support</Heading>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Help Center
-              </Text>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Contact
-              </Text>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Privacy
-              </Text>
+              <Heading size="sm">{LANDING_PAGE_CONSTANTS.FOOTER.SECTIONS.SUPPORT.TITLE}</Heading>
+              {LANDING_PAGE_CONSTANTS.FOOTER.SECTIONS.SUPPORT.LINKS.map((link, idx) => (
+                <Text
+                  key={idx}
+                  color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
+                  cursor="pointer"
+                  _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
+                  fontSize={{ base: "sm", md: "md" }}
+                >
+                  {link}
+                </Text>
+              ))}
             </VStack>
           </SimpleGrid>
 
@@ -189,33 +150,20 @@ export default function Footer() {
             gap={{ base: 4, md: 0 }}
           >
             <Text color={THEME_CONSTANTS.COLORS.TEXT_MUTED} fontSize={{ base: "sm", md: "md" }}>
-              © 2024 Push2Prod. All rights reserved.
+              {LANDING_PAGE_CONSTANTS.FOOTER.COPYRIGHT}
             </Text>
             <HStack gap={{ base: 4, md: 6 }}>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Terms
-              </Text>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Privacy
-              </Text>
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                fontSize={{ base: "sm", md: "md" }}
-              >
-                Cookies
-              </Text>
+              {LANDING_PAGE_CONSTANTS.FOOTER.LEGAL_LINKS.map((link, idx) => (
+                <Text
+                  key={idx}
+                  color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
+                  cursor="pointer"
+                  _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
+                  fontSize={{ base: "sm", md: "md" }}
+                >
+                  {link}
+                </Text>
+              ))}
             </HStack>
           </Flex>
         </VStack>
