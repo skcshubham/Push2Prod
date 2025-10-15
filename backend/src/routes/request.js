@@ -41,6 +41,15 @@ const requestRouter = express.Router();
  *                   type: object
  *       400:
  *         description: Invalid request or connection already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
  */
 requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
   try {
@@ -85,7 +94,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
       data: connectionRequestData,
     });
   } catch (error) {
-    res.status(400).json({ message: `Some Error Occurred: ${error.message}` });
+    res.status(400).json({ message: `Some Error Occurred: ${error.message}`, data: {} });
   }
 });
 
@@ -125,6 +134,15 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
  *                   type: object
  *       400:
  *         description: Invalid request or request not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
  */
 requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, res) => {
   try {
@@ -167,7 +185,7 @@ requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, r
       data: modifiedConnectionRequest,
     });
   } catch (error) {
-    res.status(400).json({ message: `Some Error Occurred: ${error.message}` });
+    res.status(400).json({ message: `Some Error Occurred: ${error.message}`, data: {} });
   }
 });
 

@@ -19,16 +19,30 @@ const profileRouter = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
  *       400:
  *         description: Error retrieving profile
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
  */
 profileRouter.get("/profile/view", userAuth, async (req, res) => {
   try {
     const user = req.user;
-    res.send(user);
+    res.json({ message: "Profile fetched successfully.", data: user });
   } catch (error) {
-    res.status(400).send(`Some Error Occured ${error}`);
+    res.status(400).json({ message: `Some Error Occured ${error}`, data: {} });
   }
 });
 
@@ -77,6 +91,15 @@ profileRouter.get("/profile/view", userAuth, async (req, res) => {
  *                   $ref: '#/components/schemas/User'
  *       400:
  *         description: Invalid update request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
  */
 profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
   try {
@@ -91,7 +114,7 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
     await loggedInUser.save();
     res.json({ message: "Profile Updated Successfully.", data: loggedInUser });
   } catch (error) {
-    res.status(400).send(`Some Error Occured ${error}`);
+    res.status(400).json({ message: `Some Error Occured ${error}`, data: {} });
   }
 });
 

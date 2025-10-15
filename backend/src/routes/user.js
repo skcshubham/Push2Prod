@@ -31,6 +31,15 @@ const USER_SAFE_DATA = ["firstName", "lastName", "photoUrl", "about", "skills", 
  *                     $ref: '#/components/schemas/User'
  *       400:
  *         description: No connections found or error occurred
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
  */
 userRouter.get("/user/connections", userAuth, async (req, res) => {
   try {
@@ -67,7 +76,7 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       data: connectionRequestUserData,
     });
   } catch (error) {
-    res.status(400).json({ message: `Some Error Occurred: ${error.message}` });
+    res.status(400).json({ message: `Some Error Occurred: ${error.message}`, data: {} });
   }
 });
 
@@ -95,6 +104,15 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
  *                     type: object
  *       400:
  *         description: No requests found or error occurred
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
  */
 userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   try {
@@ -114,7 +132,7 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
       data: allRequests,
     });
   } catch (error) {
-    res.status(400).json({ message: `Some Error Occurred: ${error.message}` });
+    res.status(400).json({ message: `Some Error Occurred: ${error.message}`, data: {} });
   }
 });
 
@@ -156,6 +174,15 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
  *                     $ref: '#/components/schemas/User'
  *       400:
  *         description: Error occurred
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
  */
 userRouter.get("/user/feed", userAuth, async (req, res) => {
   try {
@@ -196,7 +223,7 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
       data: allUsers,
     });
   } catch (error) {
-    res.status(400).json({ message: `Some Error Occurred: ${error.message}` });
+    res.status(400).json({ message: `Some Error Occurred: ${error.message}`, data: {} });
   }
 });
 

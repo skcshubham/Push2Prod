@@ -1,8 +1,10 @@
 import { ChakraProvider, createSystem, defaultConfig } from "@chakra-ui/react";
 
 import App from "./App.tsx";
+import { Provider } from "react-redux";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { store } from "./store";
 import { theme } from "./theme";
 
 const system = createSystem({
@@ -52,8 +54,10 @@ document.head.appendChild(style);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ChakraProvider value={system}>
-      <App />
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider value={system}>
+        <App />
+      </ChakraProvider>
+    </Provider>
   </StrictMode>
 );

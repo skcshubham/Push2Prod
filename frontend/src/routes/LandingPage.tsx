@@ -1,9 +1,9 @@
+import AppNavigation from "../components/AppNavigation";
 import { Box } from "@chakra-ui/react";
 import CTASection from "../components/CTASection";
 import FeaturesSection from "../components/FeaturesSection";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection";
-import Navigation from "../components/Navigation";
 import PricingSection from "../components/PricingSection";
 import TechStackSection from "../components/TechStackSection";
 
@@ -17,7 +17,7 @@ export default function LandingPage() {
 
   return (
     <Box>
-      <Navigation scrollToSection={scrollToSection} />
+      <AppNavigation scrollToSection={scrollToSection} />
       <HeroSection />
       <FeaturesSection />
       <PricingSection />

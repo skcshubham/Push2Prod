@@ -10,15 +10,32 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-
+import { type FormEvent, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 import FloatingEmojis from "../components/FloatingEmojis";
+import { useSignupMutation } from "../services/api";
 import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
-import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [signup, { isLoading, isError, error }] = useSignupMutation();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      await signup({ firstName, emailId, password }).unwrap();
+      navigate("/signin");
+    } catch (err) {
+      console.error("Signup failed:", err);
+    }
+  };
 
   return (
     <Box minH="100vh" position="relative" overflow="hidden">
@@ -99,7 +116,20 @@ export default function SignUp() {
               </Text>
             </VStack>
 
-            <VStack gap={5} as="form" align="stretch">
+            <VStack gap={5} as="form" align="stretch" onSubmit={handleSubmit}>
+              {isError && (
+                <Box bg="red.50" borderRadius="md" p={3} border="1px solid" borderColor="red.200">
+                  <Text fontSize="sm" color="red.600" fontWeight="medium">
+                    {"data" in error &&
+                    error.data &&
+                    typeof error.data === "object" &&
+                    "message" in error.data
+                      ? error.data.message
+                      : "Signup failed. Please try again."}
+                  </Text>
+                </Box>
+              )}
+
               <Stack gap={2}>
                 <Text fontSize="sm" fontWeight="medium" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
                   {LANDING_PAGE_CONSTANTS.SIGN_UP.FORM.FIRST_NAME_LABEL}
@@ -107,6 +137,8 @@ export default function SignUp() {
                 <Input
                   type="text"
                   name="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   placeholder={LANDING_PAGE_CONSTANTS.SIGN_UP.FORM.FIRST_NAME_PLACEHOLDER}
                   size="lg"
                   h={12}
@@ -124,6 +156,7 @@ export default function SignUp() {
                   }}
                   transition="all 0.2s ease"
                   required
+                  disabled={isLoading}
                 />
               </Stack>
 
@@ -134,6 +167,8 @@ export default function SignUp() {
                 <Input
                   type="email"
                   name="emailId"
+                  value={emailId}
+                  onChange={(e) => setEmailId(e.target.value)}
                   placeholder={LANDING_PAGE_CONSTANTS.SIGN_UP.FORM.EMAIL_PLACEHOLDER}
                   size="lg"
                   h={12}
@@ -151,6 +186,7 @@ export default function SignUp() {
                   }}
                   transition="all 0.2s ease"
                   required
+                  disabled={isLoading}
                 />
               </Stack>
 
@@ -161,6 +197,8 @@ export default function SignUp() {
                 <Input
                   type="password"
                   name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder={LANDING_PAGE_CONSTANTS.SIGN_UP.FORM.PASSWORD_PLACEHOLDER}
                   size="lg"
                   h={12}
@@ -178,6 +216,7 @@ export default function SignUp() {
                   }}
                   transition="all 0.2s ease"
                   required
+                  disabled={isLoading}
                 />
               </Stack>
 
@@ -190,6 +229,8 @@ export default function SignUp() {
                 fontWeight="semibold"
                 bgGradient="linear(to-r, purple.500, blue.500)"
                 color="white"
+                loading={isLoading}
+                loadingText="Creating account..."
                 _hover={{
                   bgGradient: "linear(to-r, purple.600, blue.600)",
                   transform: "translateY(-1px)",
@@ -197,6 +238,10 @@ export default function SignUp() {
                 }}
                 _active={{
                   transform: "translateY(0)",
+                }}
+                _disabled={{
+                  opacity: 0.6,
+                  cursor: "not-allowed",
                 }}
                 transition="all 0.2s ease"
               >

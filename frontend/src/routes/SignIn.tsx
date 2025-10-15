@@ -10,15 +10,36 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-
+import { type FormEvent, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import FloatingEmojis from "../components/FloatingEmojis";
-import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
-import { THEME_CONSTANTS } from "../theme/constants";
 import { useNavigate } from "react-router-dom";
 
+import FloatingEmojis from "../components/FloatingEmojis";
+import { useLoginMutation } from "../services/api";
+import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
+import { THEME_CONSTANTS } from "../theme/constants";
+import { setUser } from "../store/slices/authSlice";
+import { useDispatch } from "react-redux";
+import type { User } from "../types/user.types";
+
 export default function SignIn() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [login, { isLoading, isError, error }] = useLoginMutation();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const loginResponse = await login({ emailId, password }).unwrap();
+      dispatch(setUser(loginResponse.data as User));
+      navigate("/feed");
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
+  };
 
   return (
     <Box minH="100vh" position="relative" overflow="hidden">
@@ -99,7 +120,20 @@ export default function SignIn() {
               </Text>
             </VStack>
 
-            <VStack gap={5} as="form" align="stretch">
+            <VStack gap={5} as="form" align="stretch" onSubmit={handleSubmit}>
+              {isError && (
+                <Box bg="red.50" borderRadius="md" p={3} border="1px solid" borderColor="red.200">
+                  <Text fontSize="sm" color="red.600" fontWeight="medium">
+                    {"data" in error &&
+                    error.data &&
+                    typeof error.data === "object" &&
+                    "message" in error.data
+                      ? error.data.message
+                      : "Login failed. Please try again."}
+                  </Text>
+                </Box>
+              )}
+
               <Stack gap={2}>
                 <Text fontSize="sm" fontWeight="medium" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
                   {LANDING_PAGE_CONSTANTS.SIGN_IN.FORM.EMAIL_LABEL}
@@ -107,6 +141,8 @@ export default function SignIn() {
                 <Input
                   type="email"
                   name="emailId"
+                  value={emailId}
+                  onChange={(e) => setEmailId(e.target.value)}
                   placeholder={LANDING_PAGE_CONSTANTS.SIGN_IN.FORM.EMAIL_PLACEHOLDER}
                   size="lg"
                   h={12}
@@ -124,6 +160,7 @@ export default function SignIn() {
                   }}
                   transition="all 0.2s ease"
                   required
+                  disabled={isLoading}
                 />
               </Stack>
 
@@ -134,6 +171,8 @@ export default function SignIn() {
                 <Input
                   type="password"
                   name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder={LANDING_PAGE_CONSTANTS.SIGN_IN.FORM.PASSWORD_PLACEHOLDER}
                   size="lg"
                   h={12}
@@ -151,6 +190,7 @@ export default function SignIn() {
                   }}
                   transition="all 0.2s ease"
                   required
+                  disabled={isLoading}
                 />
               </Stack>
 
@@ -163,6 +203,8 @@ export default function SignIn() {
                 fontWeight="semibold"
                 bgGradient="linear(to-r, purple.500, blue.500)"
                 color="white"
+                loading={isLoading}
+                loadingText="Signing in..."
                 _hover={{
                   bgGradient: "linear(to-r, purple.600, blue.600)",
                   transform: "translateY(-1px)",
@@ -170,6 +212,10 @@ export default function SignIn() {
                 }}
                 _active={{
                   transform: "translateY(0)",
+                }}
+                _disabled={{
+                  opacity: 0.6,
+                  cursor: "not-allowed",
                 }}
                 transition="all 0.2s ease"
               >

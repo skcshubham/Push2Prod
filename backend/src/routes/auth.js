@@ -21,17 +21,27 @@ const authRouter = express.Router();
  *       200:
  *         description: User created successfully
  *         content:
- *           text/plain:
+ *           application/json:
  *             schema:
- *               type: string
- *               example: User added successfully.
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User added successfully.
+ *                 data:
+ *                   type: object
  *       400:
  *         description: Invalid input or user already exists
  *         content:
- *           text/plain:
+ *           application/json:
  *             schema:
- *               type: string
- *               example: Error Occured [error message]
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Error Occured [error message]
+ *                 data:
+ *                   type: object
  */
 authRouter.post("/signup", async (req, res) => {
   try {
@@ -51,9 +61,9 @@ authRouter.post("/signup", async (req, res) => {
     });
 
     await user.save();
-    res.send("User added successfully.");
+    res.json({ message: "User added successfully.", data: user });
   } catch (error) {
-    res.status(400).send(`Error Occured ${error}`);
+    res.status(400).json({ message: `Error Occured ${error}`, data: {} });
   }
 });
 
@@ -78,17 +88,27 @@ authRouter.post("/signup", async (req, res) => {
  *               type: string
  *               example: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
  *         content:
- *           text/plain:
+ *           application/json:
  *             schema:
- *               type: string
- *               example: User Login Successful.
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User Login Successful.
+ *                 data:
+ *                   type: object
  *       400:
  *         description: Invalid credentials
  *         content:
- *           text/plain:
+ *           application/json:
  *             schema:
- *               type: string
- *               example: Some Error Occured [error message]
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Some Error Occured [error message]
+ *                 data:
+ *                   type: object
  */
 authRouter.post("/login", async (req, res) => {
   try {
@@ -108,12 +128,12 @@ authRouter.post("/login", async (req, res) => {
 
       // add token to cookie and send the response back to frontend
       res.cookie("token", token);
-      res.send("User Login Successful.");
+      res.json({ message: "User Login Successful.", data: user });
     } else {
       throw new Error("Password is not correct.");
     }
   } catch (error) {
-    res.status(400).send(`Some Error Occured ${error}`);
+    res.status(400).json({ message: `Some Error Occured ${error}`, data: {} });
   }
 });
 
@@ -129,26 +149,36 @@ authRouter.post("/login", async (req, res) => {
  *       200:
  *         description: Logout successful
  *         content:
- *           text/plain:
+ *           application/json:
  *             schema:
- *               type: string
- *               example: Logout Successful.
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Logout Successful.
+ *                 data:
+ *                   type: object
  *       400:
  *         description: Logout failed
  *         content:
- *           text/plain:
+ *           application/json:
  *             schema:
- *               type: string
- *               example: Error Occured while logging out.
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Error Occured while logging out.
+ *                 data:
+ *                   type: object
  */
 authRouter.post("/logout", async (req, res) => {
   try {
     res.cookie("token", null, {
       expires: new Date(Date.now()),
     });
-    res.status(200).send(`Logout Successful.`);
+    res.status(200).json({ message: "Logout Successful.", data: {} });
   } catch (error) {
-    res.status(400).send(`Error Occured while logging out.`);
+    res.status(400).json({ message: "Error Occured while logging out.", data: {} });
   }
 });
 
