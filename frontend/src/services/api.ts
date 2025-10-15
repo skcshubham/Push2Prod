@@ -54,6 +54,13 @@ export const api = createApi({
         body: data,
       }),
     }),
+    getFeed: builder.query<{ message: string; data: User[] }, { page?: number; limit?: number }>({
+      query: ({ page = 1, limit = 10 } = {}) => ({
+        url: `/user/feed?page=${page}&limit=${limit}`,
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
   }),
 });
 
@@ -63,4 +70,5 @@ export const {
   useLogoutMutation,
   useGetUserQuery,
   useUpdateUserMutation,
+  useGetFeedQuery,
 } = api;
