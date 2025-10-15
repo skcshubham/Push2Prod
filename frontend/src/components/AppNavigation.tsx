@@ -138,98 +138,111 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
 
               {isLoggedIn ? (
                 <>
-                  <Box position="relative" ref={dropdownRef}>
-                    <Box
-                      width="40px"
-                      height="40px"
-                      borderRadius="full"
-                      bgImage={
-                        user?.photoUrl
-                          ? `url(${user.photoUrl})`
-                          : THEME_CONSTANTS.GRADIENTS.SECONDARY
-                      }
-                      bgSize="cover"
-                      bgPos="center"
-                      border="2px solid"
-                      borderColor="white"
-                      boxShadow="sm"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
+                  <HStack gap={3} align="center">
+                    <Text
                       fontSize="sm"
-                      color="white"
-                      fontWeight="bold"
-                      cursor="pointer"
-                      onClick={() => {
-                        console.log("Avatar clicked, current state:", isDropdownOpen);
-                        setIsDropdownOpen(!isDropdownOpen);
-                      }}
-                      _hover={{ transform: "scale(1.05)", transition: "transform 0.2s" }}
+                      fontWeight="medium"
+                      color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
+                      display={{ base: "none", lg: "block" }}
                     >
-                      {!user?.photoUrl && user?.firstName?.[0]?.toUpperCase()}
-                    </Box>
-
-                    {isDropdownOpen && (
+                      Welcome,{" "}
+                      <Text as="span" color={THEME_CONSTANTS.COLORS.PRIMARY} fontWeight="semibold">
+                        {user?.firstName}
+                      </Text>
+                      ! 👋
+                    </Text>
+                    <Box position="relative" ref={dropdownRef}>
                       <Box
-                        position="absolute"
-                        top="100%"
-                        right="0"
-                        mt={2}
-                        minW="200px"
-                        bg="white"
-                        borderRadius="lg"
-                        boxShadow="xl"
-                        border="1px solid"
-                        borderColor="gray.200"
-                        zIndex={9999}
-                        py={2}
+                        width="40px"
+                        height="40px"
+                        borderRadius="full"
+                        bgImage={
+                          user?.photoUrl
+                            ? `url(${user.photoUrl})`
+                            : THEME_CONSTANTS.GRADIENTS.SECONDARY
+                        }
+                        bgSize="cover"
+                        bgPos="center"
+                        border="2px solid"
+                        borderColor="white"
+                        boxShadow="sm"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        fontSize="sm"
+                        color="white"
+                        fontWeight="bold"
+                        cursor="pointer"
+                        onClick={() => {
+                          setIsDropdownOpen(!isDropdownOpen);
+                        }}
+                        _hover={{ transform: "scale(1.05)", transition: "transform 0.2s" }}
                       >
-                        <VStack gap={0} align="stretch">
-                          <Box px={4} py={3} borderBottom="1px solid" borderColor="gray.100">
-                            <Text fontWeight="semibold" fontSize="sm" color="gray.700">
-                              {user?.firstName} {user?.lastName}
-                            </Text>
-                            <Text fontSize="xs" color="gray.500">
-                              {user?.emailId}
-                            </Text>
-                          </Box>
+                        {!user?.photoUrl && user?.firstName?.[0]?.toUpperCase()}
+                      </Box>
 
-                          {menuItems.map((item) => (
+                      {isDropdownOpen && (
+                        <Box
+                          position="absolute"
+                          top="100%"
+                          right="0"
+                          mt={2}
+                          minW="200px"
+                          bg="white"
+                          borderRadius="lg"
+                          boxShadow="xl"
+                          border="1px solid"
+                          borderColor="gray.200"
+                          zIndex={9999}
+                          py={2}
+                        >
+                          <VStack gap={0} align="stretch">
+                            <Box px={4} py={3} borderBottom="1px solid" borderColor="gray.100">
+                              <Text fontWeight="semibold" fontSize="sm" color="gray.700">
+                                {user?.firstName} {user?.lastName}
+                              </Text>
+                              <Text fontSize="xs" color="gray.500">
+                                {user?.emailId}
+                              </Text>
+                            </Box>
+
+                            {menuItems.map((item) => (
+                              <Box
+                                key={item.path}
+                                px={4}
+                                py={2}
+                                cursor="pointer"
+                                _hover={{ bg: "gray.50" }}
+                                onClick={() => handleMenuItemClick(item.path)}
+                              >
+                                <HStack gap={2}>
+                                  <item.icon size={14} />
+                                  <Text fontSize="sm" color="gray.700">
+                                    {item.label}
+                                  </Text>
+                                </HStack>
+                              </Box>
+                            ))}
+
                             <Box
-                              key={item.path}
                               px={4}
                               py={2}
                               cursor="pointer"
-                              _hover={{ bg: "gray.50" }}
-                              onClick={() => handleMenuItemClick(item.path)}
+                              _hover={{ bg: "red.50" }}
+                              onClick={handleLogout}
                             >
                               <HStack gap={2}>
-                                <item.icon size={14} />
-                                <Text fontSize="sm" color="gray.700">
-                                  {item.label}
+                                <FaSignInAlt size={14} color="red" />
+                                <Text fontSize="sm" color="red.600" fontWeight="medium">
+                                  Logout
                                 </Text>
                               </HStack>
                             </Box>
-                          ))}
-
-                          <Box
-                            px={4}
-                            py={2}
-                            cursor="pointer"
-                            _hover={{ bg: "red.50" }}
-                            onClick={handleLogout}
-                          >
-                            <HStack gap={2}>
-                              <FaSignInAlt size={14} color="red" />
-                              <Text fontSize="sm" color="red.600" fontWeight="medium">
-                                Logout
-                              </Text>
-                            </HStack>
-                          </Box>
-                        </VStack>
-                      </Box>
-                    )}
-                  </Box>
+                          </VStack>
+                        </Box>
+                      )}
+                    </Box>
+                  </HStack>
                 </>
               ) : (
                 <>

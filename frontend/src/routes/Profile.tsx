@@ -36,7 +36,6 @@ export default function Profile() {
   });
 
   useEffect(() => {
-    console.log(response);
     if (response?.data) {
       setFormData({
         firstName: response.data.firstName || "",
