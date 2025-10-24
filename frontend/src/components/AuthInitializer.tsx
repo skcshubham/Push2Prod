@@ -1,4 +1,4 @@
-import { clearUser, restoreAuth, setUser } from "../store/slices/authSlice";
+import { clearUser, setUser } from "../store/slices/authSlice";
 
 import type { User } from "../types/user.types";
 import { useDispatch } from "react-redux";

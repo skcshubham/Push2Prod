@@ -60,9 +60,30 @@ export const api = createApi({
         method: "GET",
       }),
     }),
-    respondToRequest: builder.mutation({
+    respondToFeedRequest: builder.mutation({
       query: ({ status, toUserId }: { status: "interested" | "ignored"; toUserId: string }) => ({
         url: `/request/send/${status}/${toUserId}`,
+        method: "POST",
+      }),
+      invalidatesTags: [{ type: "User", id: "FEED" }],
+    }),
+    getReceivedRequests: builder.query<{ message: string; data: any[] }, void>({
+      query: () => ({
+        url: "/user/requests/received",
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
+    getConnections: builder.query<{ message: string; data: User[] }, void>({
+      query: () => ({
+        url: "/user/connections",
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
+    respondToRequest: builder.mutation({
+      query: ({ status, requestId }: { status: "accepted" | "rejected"; requestId: string }) => ({
+        url: `/request/review/${status}/${requestId}`,
         method: "POST",
       }),
       invalidatesTags: [{ type: "User", id: "FEED" }],
@@ -77,5 +98,8 @@ export const {
   useGetUserQuery,
   useUpdateUserMutation,
   useLazyGetFeedQuery,
+  useRespondToFeedRequestMutation,
+  useGetReceivedRequestsQuery,
+  useGetConnectionsQuery,
   useRespondToRequestMutation,
 } = api;

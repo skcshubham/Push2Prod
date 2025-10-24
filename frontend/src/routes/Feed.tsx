@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FaHeart, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { useLazyGetFeedQuery, useRespondToRequestMutation } from "../services/api";
+import { useLazyGetFeedQuery, useRespondToFeedRequestMutation } from "../services/api";
 
 import AppNavigation from "../components/AppNavigation";
 import type { User } from "../types/user.types";
@@ -25,7 +25,7 @@ export default function Feed() {
   const [noMoreUsers, setNoMoreUsers] = useState(false);
   const [getFeed, { data: users, isLoading, error }] = useLazyGetFeedQuery();
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
-  const [respondToRequest, { isLoading: isResponding }] = useRespondToRequestMutation();
+  const [respondToFeedRequest, { isLoading: isResponding }] = useRespondToFeedRequestMutation();
 
   // Reset state when component mounts
   useEffect(() => {
@@ -84,7 +84,10 @@ export default function Feed() {
 
   const handlePass = async (currentUser: User) => {
     try {
-      await respondToRequest({ status: "ignored", toUserId: currentUser._id.toString() }).unwrap();
+      await respondToFeedRequest({
+        status: "ignored",
+        toUserId: currentUser._id.toString(),
+      }).unwrap();
       setCurrentUserIndex((prev) => prev + 1);
     } catch (error) {
       console.error("Failed to pass user:", error);
@@ -93,7 +96,7 @@ export default function Feed() {
 
   const handleLike = async (currentUser: User) => {
     try {
-      await respondToRequest({
+      await respondToFeedRequest({
         status: "interested",
         toUserId: currentUser._id.toString(),
       }).unwrap();
