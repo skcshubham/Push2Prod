@@ -5,7 +5,6 @@ import {
   Container,
   HStack,
   Heading,
-  Icon,
   SimpleGrid,
   Text,
   VStack,
@@ -14,6 +13,7 @@ import {
 import { FaCode, FaGithub, FaHeart, FaRocket, FaUsers } from "react-icons/fa";
 
 import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
+import React from "react";
 import { THEME_CONSTANTS } from "../theme/constants";
 
 export default function PricingSection() {
@@ -123,11 +123,10 @@ export default function PricingSection() {
                 <VStack gap={3} align="stretch">
                   {LANDING_PAGE_CONSTANTS.PRICING.PLANS.FREE.FEATURES.map((feature, idx) => (
                     <HStack key={idx} gap={2}>
-                      <Icon
-                        as={iconMap[feature.icon as keyof typeof iconMap]}
-                        color="green.500"
-                        boxSize={4}
-                      />
+                      {React.createElement(iconMap[feature.icon as keyof typeof iconMap], {
+                        color: "green",
+                        style: { width: "16px", height: "16px" },
+                      })}
                       <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
                         {feature.text}
                       </Text>
@@ -202,11 +201,10 @@ export default function PricingSection() {
                 <VStack gap={3} align="stretch">
                   {LANDING_PAGE_CONSTANTS.PRICING.PLANS.PRO.FEATURES.map((feature, idx) => (
                     <HStack key={idx} gap={2}>
-                      <Icon
-                        as={iconMap[feature.icon as keyof typeof iconMap]}
-                        color="green.500"
-                        boxSize={4}
-                      />
+                      {React.createElement(iconMap[feature.icon as keyof typeof iconMap], {
+                        color: "green",
+                        style: { width: "16px", height: "16px" },
+                      })}
                       <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
                         {feature.text}
                       </Text>
@@ -257,11 +255,10 @@ export default function PricingSection() {
                 <VStack gap={3} align="stretch">
                   {LANDING_PAGE_CONSTANTS.PRICING.PLANS.ENTERPRISE.FEATURES.map((feature, idx) => (
                     <HStack key={idx} gap={2}>
-                      <Icon
-                        as={iconMap[feature.icon as keyof typeof iconMap]}
-                        color="green.500"
-                        boxSize={4}
-                      />
+                      {React.createElement(iconMap[feature.icon as keyof typeof iconMap], {
+                        color: "green",
+                        style: { width: "16px", height: "16px" },
+                      })}
                       <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
                         {feature.text}
                       </Text>

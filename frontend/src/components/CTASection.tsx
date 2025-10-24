@@ -4,7 +4,6 @@ import {
   Container,
   HStack,
   Heading,
-  Icon,
   Text,
   VStack,
   useBreakpointValue,
@@ -112,7 +111,7 @@ export default function CTASection() {
                 }}
               >
                 {LANDING_PAGE_CONSTANTS.CTA.PRIMARY_CTA}
-                <Icon as={FaArrowRight} ml={2} />
+                <FaArrowRight style={{ marginLeft: "8px" }} />
               </Button>
               <Button
                 size={{ base: "md", md: "lg" }}
@@ -134,19 +133,19 @@ export default function CTASection() {
 
             <HStack gap={8} mt={6} wrap="wrap" justify="center">
               <HStack gap={2}>
-                <Icon as={FaUsers} color="green.500" />
+                <FaUsers color="green" />
                 <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
                   {LANDING_PAGE_CONSTANTS.CTA.TRUST_INDICATORS.FREE}
                 </Text>
               </HStack>
               <HStack gap={2}>
-                <Icon as={FaGithub} color="gray.600" />
+                <FaGithub color="gray" />
                 <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
                   {LANDING_PAGE_CONSTANTS.CTA.TRUST_INDICATORS.VERIFIED}
                 </Text>
               </HStack>
               <HStack gap={2}>
-                <Icon as={FaHeart} color="red.500" />
+                <FaHeart color="red" />
                 <Text fontSize="sm" color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
                   {LANDING_PAGE_CONSTANTS.CTA.TRUST_INDICATORS.CONNECTIONS}
                 </Text>

@@ -4,7 +4,6 @@ import {
   Container,
   HStack,
   Heading,
-  Icon,
   Input,
   Stack,
   Text,
@@ -66,7 +65,7 @@ export default function SignUp() {
           borderRadius="full"
           px={6}
         >
-          <Icon as={FaArrowLeft} mr={2} />
+          <FaArrowLeft style={{ marginRight: "8px" }} />
           Back to Home
         </Button>
       </Box>
@@ -107,6 +106,7 @@ export default function SignUp() {
                 color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
                 fontWeight="bold"
                 letterSpacing="tight"
+                fontFamily="romantic"
               >
                 {LANDING_PAGE_CONSTANTS.SIGN_UP.TITLE}
               </Heading>

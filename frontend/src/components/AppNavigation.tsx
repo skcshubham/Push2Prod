@@ -89,7 +89,7 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
   const menuItems = [
     { label: "Home", path: "/", icon: FaHome },
     { label: "Feed", path: "/feed", icon: FaNewspaper },
-    { label: "Connections", path: "/connections", icon: FaUserFriends },
+    { label: "Requests", path: "/requests", icon: FaUserFriends },
     { label: "Chats", path: "/chats", icon: FaComments },
     { label: "Profile", path: "/profile", icon: FaUser },
   ];

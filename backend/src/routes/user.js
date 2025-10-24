@@ -11,13 +11,13 @@ const USER_SAFE_DATA = ["firstName", "lastName", "photoUrl", "about", "skills", 
  * @swagger
  * /user/connections:
  *   get:
- *     summary: Get all accepted connections for the logged-in user
+ *     summary: Get all accepted connection requests for the logged-in user
  *     tags: [Users]
  *     security:
  *       - cookieAuth: []
  *     responses:
  *       200:
- *         description: List of all connections
+ *         description: List of all connection requests
  *         content:
  *           application/json:
  *             schema:
@@ -30,7 +30,7 @@ const USER_SAFE_DATA = ["firstName", "lastName", "photoUrl", "about", "skills", 
  *                   items:
  *                     $ref: '#/components/schemas/User'
  *       400:
- *         description: No connections found or error occurred
+ *         description: No connection requests found or error occurred
  *         content:
  *           application/json:
  *             schema:
@@ -68,11 +68,11 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
     });
 
     if (!allConnections.length) {
-      throw new Error("No Connections found.");
+      throw new Error("No Connection Requests found.");
     }
 
     res.status(200).json({
-      message: "All Connections.",
+      message: "All Connection Requests.",
       data: connectionRequestUserData,
     });
   } catch (error) {

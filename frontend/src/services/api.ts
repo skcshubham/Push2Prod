@@ -59,7 +59,13 @@ export const api = createApi({
         url: `/user/feed?page=${page}&limit=${limit}`,
         method: "GET",
       }),
-      providesTags: ["User"],
+    }),
+    respondToRequest: builder.mutation({
+      query: ({ status, toUserId }: { status: "interested" | "ignored"; toUserId: string }) => ({
+        url: `/request/send/${status}/${toUserId}`,
+        method: "POST",
+      }),
+      invalidatesTags: [{ type: "User", id: "FEED" }],
     }),
   }),
 });
@@ -70,5 +76,6 @@ export const {
   useLogoutMutation,
   useGetUserQuery,
   useUpdateUserMutation,
-  useGetFeedQuery,
+  useLazyGetFeedQuery,
+  useRespondToRequestMutation,
 } = api;

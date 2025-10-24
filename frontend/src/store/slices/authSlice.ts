@@ -7,31 +7,33 @@ interface AuthState {
   isAuthenticated: boolean;
 }
 
-const getInitialState = (): AuthState => {
-  if (typeof window !== "undefined") {
-    const savedUser = localStorage.getItem("user");
-    const savedAuth = localStorage.getItem("isAuthenticated");
+// Helper functions for localStorage persistence
+const AUTH_STORAGE_KEY = 'auth_state';
 
-    if (savedUser && savedAuth === "true") {
-      try {
-        return {
-          user: JSON.parse(savedUser),
-          isAuthenticated: true,
-        };
-      } catch (error) {
-        localStorage.removeItem("user");
-        localStorage.removeItem("isAuthenticated");
-      }
-    }
+const saveAuthState = (state: AuthState) => {
+  try {
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(state));
+  } catch (error) {
+    console.error('Failed to save auth state to localStorage:', error);
   }
+};
 
+const loadAuthState = (): AuthState => {
+  try {
+    const savedState = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (savedState) {
+      return JSON.parse(savedState);
+    }
+  } catch (error) {
+    console.error('Failed to load auth state from localStorage:', error);
+  }
   return {
     user: null,
     isAuthenticated: false,
   };
 };
 
-const initialState: AuthState = getInitialState();
+const initialState: AuthState = loadAuthState();
 
 const authSlice = createSlice({
   name: "auth",
@@ -40,23 +42,19 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
       state.isAuthenticated = true;
-
-      if (typeof window !== "undefined") {
-        localStorage.setItem("user", JSON.stringify(action.payload));
-        localStorage.setItem("isAuthenticated", "true");
-      }
+      saveAuthState(state);
     },
     clearUser: (state) => {
       state.user = null;
       state.isAuthenticated = false;
-
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("user");
-        localStorage.removeItem("isAuthenticated");
-      }
+      saveAuthState(state);
+    },
+    restoreAuth: (state, action: PayloadAction<AuthState>) => {
+      state.user = action.payload.user;
+      state.isAuthenticated = action.payload.isAuthenticated;
     },
   },
 });
 
-export const { setUser, clearUser } = authSlice.actions;
+export const { setUser, clearUser, restoreAuth } = authSlice.actions;
 export default authSlice.reducer;

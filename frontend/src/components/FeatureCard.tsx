@@ -1,4 +1,4 @@
-import { Box, Heading, Icon, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import { FaCode, FaHeart, FaRocket } from "react-icons/fa";
 
 import { THEME_CONSTANTS } from "../theme/constants";
@@ -132,7 +132,7 @@ export default function FeatureCard({ icon, title, description, badge, color }: 
             transition: "opacity 0.3s ease",
           }}
         >
-          <Icon as={IconComponent} boxSize={{ base: 10, md: 12 }} />
+          <IconComponent style={{ width: "48px", height: "48px" }} />
         </Box>
         <VStack gap={3}>
           <Heading

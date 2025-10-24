@@ -145,7 +145,7 @@ const options = {
       },
       {
         name: "Users",
-        description: "User discovery and connections",
+        description: "User discovery and connection requests",
       },
     ],
   },

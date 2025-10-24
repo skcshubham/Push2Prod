@@ -12,7 +12,7 @@ export const LANDING_PAGE_CONSTANTS = {
     DESCRIPTION:
       "Swipe right on developers who share your coding passion, tech stack, and dreams. Build meaningful connections that go beyond just code.",
     PRIMARY_CTA: "Start Swiping",
-    SECONDARY_CTA: "View Code",
+    SECONDARY_CTA: "Create Profile",
     TRUST_INDICATORS: {
       FREE: "Free to join",
       VERIFIED: "Verified profiles",
