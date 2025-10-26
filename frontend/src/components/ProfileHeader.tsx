@@ -1,4 +1,4 @@
-import { Box, HStack, Heading, Input, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, Input, Text, VStack } from "@chakra-ui/react";
 
 import { THEME_CONSTANTS } from "../theme/constants";
 import type { User } from "../types/user.types";
@@ -119,7 +119,7 @@ export default function ProfileHeader({
           px={THEME_CONSTANTS.SPACING.SM}
           py={THEME_CONSTANTS.SPACING.XS}
           borderRadius={THEME_CONSTANTS.RADIUS.FULL}
-          fontSize={THEME_CONSTANTS.FONT_SIZES.XS}
+          fontSize="xs"
           bg="rgba(255, 255, 255, 0.2)"
           color="white"
           backdropFilter="blur(10px)"

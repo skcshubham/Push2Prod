@@ -12,7 +12,7 @@ import {
   VStack,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { FaComments, FaHeart, FaUser } from "react-icons/fa";
+import { FaComments, FaHeart } from "react-icons/fa";
 
 import AppNavigation from "../components/AppNavigation";
 import { useGetConnectionsQuery } from "../services/api";
@@ -202,7 +202,7 @@ export default function Chats() {
                           {skill}
                         </Badge>
                       ))}
-                      {connection.skills?.length > 2 && (
+                      {connection.skills && connection.skills.length > 2 && (
                         <Badge
                           colorScheme="gray"
                           variant="outline"
@@ -295,7 +295,7 @@ export default function Chats() {
                             {skill}
                           </Badge>
                         ))}
-                        {connection.skills?.length > 3 && (
+                        {connection.skills && connection.skills.length > 3 && (
                           <Badge
                             colorScheme="gray"
                             variant="outline"

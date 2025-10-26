@@ -120,11 +120,13 @@ export default function SignUp() {
               {isError && (
                 <Box bg="red.50" borderRadius="md" p={3} border="1px solid" borderColor="red.200">
                   <Text fontSize="sm" color="red.600" fontWeight="medium">
-                    {"data" in error &&
+                    {isError &&
+                    error &&
+                    "data" in error &&
                     error.data &&
                     typeof error.data === "object" &&
                     "message" in error.data
-                      ? error.data.message
+                      ? String(error.data.message)
                       : "Signup failed. Please try again."}
                   </Text>
                 </Box>
