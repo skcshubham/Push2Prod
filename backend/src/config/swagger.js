@@ -13,7 +13,7 @@ const options = {
     },
     servers: [
       {
-        url: `http://${13.48.58.141}:8000`,
+        url: `http://13.48.58.141:8000`,
         description: "Development server",
       },
     ],
