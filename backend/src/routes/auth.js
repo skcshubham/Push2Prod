@@ -127,15 +127,13 @@ authRouter.post("/login", async (req, res) => {
       const token = await user.getJWT();
 
       // add token to cookie and send the response back to frontend
-      // Note: For cross-site HTTP requests, browsers may still block cookies
-      // The token is also included in response body as fallback
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // Set to false for HTTP
-        sameSite: "none", // Required for cross-site requests (but may require HTTPS in some browsers)
+        secure: true, // Requires HTTPS
+        sameSite: "none", // Required for cross-site requests
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
       });
-      res.json({ message: "User Login Successful.", data: user, token: token });
+      res.json({ message: "User Login Successful.", data: user });
     } else {
       throw new Error("Password is not correct.");
     }
@@ -182,7 +180,7 @@ authRouter.post("/logout", async (req, res) => {
   try {
     res.cookie("token", "", {
       httpOnly: true,
-      secure: false, // Set to false for HTTP
+      secure: true, // Requires HTTPS
       sameSite: "none", // Must match login cookie settings
       expires: new Date(Date.now()),
     });
