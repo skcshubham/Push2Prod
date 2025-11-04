@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const { connectToCluster } = require("./config/database");
 const cookieParser = require("cookie-parser");

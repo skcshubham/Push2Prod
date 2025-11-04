@@ -2,6 +2,7 @@ const express = require("express");
 const { validateSignUpData } = require("../utils/validation");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const sendEmail = require("../utils/sendEmail");
 
 const authRouter = express.Router();
 
@@ -129,10 +130,11 @@ authRouter.post("/login", async (req, res) => {
       // add token to cookie and send the response back to frontend
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // Requires HTTPS
+        secure: true, // Requires HTTPS
         sameSite: "none", // Required for cross-site requests
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
       });
+      await sendEmail.run(emailId);
       res.json({ message: "User Login Successful.", data: user });
     } else {
       throw new Error("Password is not correct.");

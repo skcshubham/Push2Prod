@@ -20,18 +20,18 @@ import { useGetConnectionsQuery } from "../services/api";
 export default function Chats() {
   const { data: connectionsData, isLoading, error } = useGetConnectionsQuery();
 
-  const cardWidth = useBreakpointValue({
-    base: "100%",
-    sm: "100%",
-    md: "600px",
-    lg: "700px",
-  });
-
   const imageSize = useBreakpointValue({
     base: "50px",
     sm: "60px",
     md: "70px",
     lg: "80px",
+  });
+
+  const cardWidth = useBreakpointValue({
+    base: "350px",
+    sm: "450px",
+    md: "600px",
+    lg: "600px",
   });
 
   const isMobile = useBreakpointValue({
@@ -136,7 +136,7 @@ export default function Chats() {
                   transform: "translateY(-2px)",
                   borderColor: "purple.200",
                 }}
-                maxW={cardWidth}
+                w={cardWidth}
                 mx="auto"
               >
                 {isMobile ? (

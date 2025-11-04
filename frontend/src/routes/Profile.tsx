@@ -19,7 +19,6 @@ import ProfileHeader from "../components/ProfileHeader";
 import SkillsSection from "../components/SkillsSection";
 import { THEME_CONSTANTS } from "../theme/constants";
 import type { User } from "../types/user.types";
-import { toaster } from "../components/ui/toaster";
 
 export default function Profile() {
   const { data: response, isLoading, error, refetch } = useGetUserQuery();
@@ -48,21 +47,6 @@ export default function Profile() {
       });
     }
   }, [response]);
-
-  useEffect(() => {
-    if (error) {
-      const errorMessage =
-        (error as { data?: { message?: string } })?.data?.message ||
-        "Unable to load your profile. Please try again.";
-
-      toaster.create({
-        title: "Failed to Load Profile",
-        description: errorMessage,
-        type: "error",
-        duration: 5000,
-      });
-    }
-  }, [error]);
 
   const [newSkill, setNewSkill] = useState("");
 
@@ -103,32 +87,13 @@ export default function Profile() {
         Object.entries(updateData).filter(([, value]) => value !== undefined && value !== "")
       );
 
-      const response = await updateUser(cleanedData as Partial<User>).unwrap();
+      await updateUser(cleanedData as Partial<User>).unwrap();
 
       await refetch();
 
       setIsEditing(false);
-
-      toaster.create({
-        title: "Profile Updated",
-        description: response.message || "Your profile has been updated successfully!",
-        type: "success",
-        duration: 3000,
-      });
     } catch (error) {
       console.error("Failed to update profile:", error);
-
-      const errorMessage =
-        (error as { data?: { message?: string }; message?: string })?.data?.message ||
-        (error as { message?: string })?.message ||
-        "Failed to update profile. Please try again.";
-
-      toaster.create({
-        title: "Update Failed",
-        description: errorMessage,
-        type: "error",
-        duration: 5000,
-      });
     }
   };
 
