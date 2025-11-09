@@ -3,6 +3,7 @@ const { validateSignUpData } = require("../utils/validation");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const sendEmail = require("../utils/sendEmail");
+const { welcomeMessage } = require("../utils/constant");
 
 const authRouter = express.Router();
 
@@ -134,7 +135,7 @@ authRouter.post("/login", async (req, res) => {
         sameSite: "none", // Required for cross-site requests
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
       });
-      await sendEmail.run(emailId);
+      await sendEmail.run(emailId, welcomeMessage);
       res.json({ message: "User Login Successful.", data: user });
     } else {
       throw new Error("Password is not correct.");
@@ -188,7 +189,9 @@ authRouter.post("/logout", async (req, res) => {
     });
     res.status(200).json({ message: "Logout Successful.", data: {} });
   } catch (error) {
-    res.status(400).json({ message: "Error Occured while logging out.", data: {} });
+    res
+      .status(400)
+      .json({ message: "Error Occured while logging out.", data: {} });
   }
 });
 
