@@ -11,6 +11,10 @@ import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
 import { Toaster } from "@chakra-ui/react";
 import { toaster } from "./components/ui/toaster";
+import ShippingPolicy from "./routes/ShippingPolicy";
+import TermsAndConditions from "./routes/TermsAndConditions";
+import PrivacyPolicy from "./routes/PrivacyPolicy";
+import CancellationRefundPolicy from "./routes/CancellationRefundPolicy";
 
 function App() {
   return (
@@ -20,6 +24,13 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/shipping-policy" element={<ShippingPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route
+            path="/cancellation-refund-policy"
+            element={<CancellationRefundPolicy />}
+          />
           <Route
             path="/*"
             element={

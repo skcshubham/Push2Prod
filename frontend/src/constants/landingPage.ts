@@ -172,7 +172,12 @@ export const LANDING_PAGE_CONSTANTS = {
         LINKS: ["Help Center", "Contact", "Privacy"],
       },
     },
-    LEGAL_LINKS: ["Terms", "Privacy", "Cookies"],
+    LEGAL_LINKS: [
+      { LABEL: "Shipping Policy", PATH: "/shipping-policy" },
+      { LABEL: "Terms & Conditions", PATH: "/terms-and-conditions" },
+      { LABEL: "Privacy Policy", PATH: "/privacy-policy" },
+      { LABEL: "Cancellation & Refund Policy", PATH: "/cancellation-refund-policy" },
+    ],
     SOCIAL_MEDIA: {
       GITHUB: "GitHub",
       TWITTER: "Twitter",

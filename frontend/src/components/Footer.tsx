@@ -12,6 +12,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { Link as RouterLink } from "react-router-dom";
 
 import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
@@ -156,12 +157,15 @@ export default function Footer() {
               {LANDING_PAGE_CONSTANTS.FOOTER.LEGAL_LINKS.map((link, idx) => (
                 <Text
                   key={idx}
+                  as={RouterLink}
+                  to={link.PATH}
                   color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
                   cursor="pointer"
                   _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
+                  textDecoration="none"
                   fontSize={{ base: "sm", md: "md" }}
                 >
-                  {link}
+                  {link.LABEL}
                 </Text>
               ))}
             </HStack>
