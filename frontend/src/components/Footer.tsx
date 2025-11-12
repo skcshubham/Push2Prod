@@ -9,13 +9,16 @@ import {
   SimpleGrid,
   Text,
   VStack,
+  chakra,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link as RouterLink } from "react-router-dom";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
+
+const FooterLink = chakra(RouterLink);
 
 export default function Footer() {
   const footerPadding = useBreakpointValue({ base: 8, md: 12 });
@@ -155,18 +158,16 @@ export default function Footer() {
             </Text>
             <HStack gap={{ base: 4, md: 6 }}>
               {LANDING_PAGE_CONSTANTS.FOOTER.LEGAL_LINKS.map((link, idx) => (
-                <Text
+                <FooterLink
                   key={idx}
-                  as={RouterLink}
                   to={link.PATH}
                   color={THEME_CONSTANTS.COLORS.TEXT_MUTED}
-                  cursor="pointer"
                   _hover={{ color: THEME_CONSTANTS.COLORS.WHITE }}
-                  textDecoration="none"
                   fontSize={{ base: "sm", md: "md" }}
+                  textDecoration="none"
                 >
                   {link.LABEL}
-                </Text>
+                </FooterLink>
               ))}
             </HStack>
           </Flex>

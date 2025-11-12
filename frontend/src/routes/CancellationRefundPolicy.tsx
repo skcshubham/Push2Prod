@@ -4,10 +4,10 @@ import {
   Badge,
   Box,
   Container,
-  Divider,
   Heading,
   HStack,
   Icon,
+  Separator,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -29,7 +29,7 @@ export default function CancellationRefundPolicy() {
         <Container maxW="4xl">
           <VStack
             align="start"
-            spacing={6}
+            gap={6}
             bg="white"
             p={{ base: 6, md: 10 }}
             borderRadius="2xl"
@@ -48,16 +48,16 @@ export default function CancellationRefundPolicy() {
               implemented a liberal cancellation policy. Under this policy:
             </Text>
 
-            <VStack align="start" spacing={4} color="gray.600">
+            <VStack align="start" gap={4} color="gray.600">
               {policyPoints.map((point) => (
-                <HStack key={point} align="start" spacing={3}>
+                <HStack key={point} align="start" gap={3}>
                   <Icon as={FaUndo} color="purple.500" mt={1} />
                   <Text>{point}</Text>
                 </HStack>
               ))}
             </VStack>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
             <Heading size="md" color="gray.800" pt={2}>
               Refund Timelines
@@ -70,14 +70,14 @@ export default function CancellationRefundPolicy() {
 
             <VStack
               align="start"
-              spacing={3}
+              gap={3}
               bg="purple.50"
               borderRadius="lg"
               p={6}
               w="full"
               color="gray.700"
             >
-              <HStack spacing={3}>
+              <HStack gap={3}>
                 <Icon as={FaRegClock} color="purple.500" />
                 <Text>
                   <Text as="span" fontWeight="semibold">
@@ -86,7 +86,7 @@ export default function CancellationRefundPolicy() {
                   Initiated immediately after approval; bank timelines can influence final settlement.
                 </Text>
               </HStack>
-              <HStack spacing={3}>
+              <HStack gap={3}>
                 <Icon as={FaExclamationTriangle} color="purple.500" />
                 <Text>
                   <Text as="span" fontWeight="semibold">
@@ -96,7 +96,7 @@ export default function CancellationRefundPolicy() {
                   and preferred contact details.
                 </Text>
               </HStack>
-              <HStack spacing={3}>
+              <HStack gap={3}>
                 <Icon as={FaClipboardCheck} color="purple.500" />
                 <Text>
                   <Text as="span" fontWeight="semibold">

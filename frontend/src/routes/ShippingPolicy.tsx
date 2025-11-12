@@ -1,15 +1,15 @@
 import AppNavigation from "../components/AppNavigation";
 import Footer from "../components/Footer";
 import {
+  Badge,
   Box,
   Container,
-  Divider,
   Heading,
-  Text,
-  VStack,
   HStack,
   Icon,
-  Badge,
+  Separator,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { FaShippingFast, FaEnvelope, FaPhoneAlt, FaRegClock } from "react-icons/fa";
 
@@ -21,7 +21,7 @@ export default function ShippingPolicy() {
         <Container maxW="4xl">
           <VStack
             align="start"
-            spacing={8}
+            gap={8}
             bg="white"
             p={{ base: 6, md: 10 }}
             borderRadius="2xl"
@@ -35,7 +35,7 @@ export default function ShippingPolicy() {
               Last updated: 12 November 2025
             </Badge>
 
-            <VStack align="start" spacing={5} w="full">
+            <VStack align="start" gap={5} w="full">
               <Heading size="md" color="gray.800">
                 Shipping Overview
               </Heading>
@@ -43,8 +43,8 @@ export default function ShippingPolicy() {
                 We partner exclusively with trusted courier and postal services so your order reaches you
                 safely and on time, wherever you are in the world.
               </Text>
-              <VStack align="start" spacing={3}>
-                <HStack align="start" spacing={3}>
+              <VStack align="start" gap={3}>
+                <HStack align="start" gap={3}>
                   <Icon as={FaShippingFast} color="purple.500" mt={1} />
                   <Text color="gray.600">
                     <Text as="span" fontWeight="semibold" color="gray.800">
@@ -54,7 +54,7 @@ export default function ShippingPolicy() {
                     Speed Post.
                   </Text>
                 </HStack>
-                <HStack align="start" spacing={3}>
+                <HStack align="start" gap={3}>
                   <Icon as={FaShippingFast} color="purple.500" mt={1} />
                   <Text color="gray.600">
                     <Text as="span" fontWeight="semibold" color="gray.800">
@@ -63,7 +63,7 @@ export default function ShippingPolicy() {
                     Shipped using registered national courier networks and/or India Post Speed Post.
                   </Text>
                 </HStack>
-                <HStack align="start" spacing={3}>
+                <HStack align="start" gap={3}>
                   <Icon as={FaRegClock} color="purple.500" mt={1} />
                   <Text color="gray.600">
                     Orders are typically dispatched within{" "}
@@ -77,9 +77,9 @@ export default function ShippingPolicy() {
               </VStack>
             </VStack>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
-            <VStack align="start" spacing={5} w="full">
+            <VStack align="start" gap={5} w="full">
               <Heading size="md" color="gray.800">
                 Delivery Commitments &amp; Confirmation
               </Heading>
@@ -91,9 +91,9 @@ export default function ShippingPolicy() {
               </Text>
             </VStack>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
-            <VStack align="start" spacing={5} w="full">
+            <VStack align="start" gap={5} w="full">
               <Heading size="md" color="gray.800">
                 Need Help?
               </Heading>
@@ -101,14 +101,14 @@ export default function ShippingPolicy() {
                 If you have questions about a shipment or need assistance with delivery, our support team
                 is ready to help.
               </Text>
-              <VStack align="start" spacing={2} bg="purple.50" borderRadius="lg" p={6} w="full">
-                <HStack spacing={3}>
+              <VStack align="start" gap={2} bg="purple.50" borderRadius="lg" p={6} w="full">
+                <HStack gap={3}>
                   <Icon as={FaPhoneAlt} color="purple.500" />
                   <Text color="gray.800" fontWeight="semibold">
                     +91 62048 72667
                   </Text>
                 </HStack>
-                <HStack spacing={3}>
+                <HStack gap={3}>
                   <Icon as={FaEnvelope} color="purple.500" />
                   <Text color="gray.800" fontWeight="semibold">
                     mazakomaviya@gmail.com

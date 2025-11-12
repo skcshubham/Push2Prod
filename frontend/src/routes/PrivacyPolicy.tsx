@@ -4,10 +4,10 @@ import {
   Badge,
   Box,
   Container,
-  Divider,
   Heading,
   HStack,
   Icon,
+  Separator,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -35,7 +35,7 @@ export default function PrivacyPolicy() {
         <Container maxW="4xl">
           <VStack
             align="start"
-            spacing={6}
+            gap={6}
             bg="white"
             p={{ base: 6, md: 10 }}
             borderRadius="2xl"
@@ -62,35 +62,35 @@ export default function PrivacyPolicy() {
               this page periodically to ensure that you agree with any changes.
             </Text>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
             <Heading size="md" color="gray.800" pt={2}>
               Information We Collect
             </Heading>
-            <VStack align="start" spacing={3} color="gray.600">
+            <VStack align="start" gap={3} color="gray.600">
               {infoWeCollect.map((item) => (
-                <HStack key={item} align="start" spacing={3}>
+                <HStack key={item} align="start" gap={3}>
                   <Icon as={FaCheckCircle} color="purple.500" mt={1} />
                   <Text>{item}</Text>
                 </HStack>
               ))}
             </VStack>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
             <Heading size="md" color="gray.800" pt={2}>
               How We Use the Information We Gather
             </Heading>
-            <VStack align="start" spacing={3} color="gray.600">
+            <VStack align="start" gap={3} color="gray.600">
               {howWeUseIt.map((item) => (
-                <HStack key={item} align="start" spacing={3}>
+                <HStack key={item} align="start" gap={3}>
                   <Icon as={FaShieldAlt} color="purple.500" mt={1} />
                   <Text>{item}</Text>
                 </HStack>
               ))}
             </VStack>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
             <Heading size="md" color="gray.800" pt={2}>
               Security
@@ -101,7 +101,7 @@ export default function PrivacyPolicy() {
               collect online.
             </Text>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
             <Heading size="md" color="gray.800" pt={2}>
               How We Use Cookies
@@ -126,7 +126,7 @@ export default function PrivacyPolicy() {
               of the website.
             </Text>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
             <Heading size="md" color="gray.800" pt={2}>
               Controlling Your Personal Information
@@ -135,7 +135,7 @@ export default function PrivacyPolicy() {
               You may choose to restrict the collection or use of your personal information in the following
               ways:
             </Text>
-            <VStack align="start" spacing={2} color="gray.600">
+            <VStack align="start" gap={2} color="gray.600">
               <Text>
                 Whenever you are asked to fill in a form on the website, look for the box that you can click to
                 indicate that you do not want the information to be used by anybody for direct marketing purposes.
@@ -167,18 +167,18 @@ export default function PrivacyPolicy() {
               as soon as possible. We will promptly correct any information found to be incorrect.
             </Text>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
             <VStack
               align="start"
-              spacing={3}
+              gap={3}
               bg="purple.50"
               borderRadius="lg"
               p={6}
               w="full"
               color="gray.700"
             >
-              <HStack spacing={3}>
+              <HStack gap={3}>
                 <Icon as={FaCookieBite} color="purple.500" />
                 <Text fontWeight="semibold" color="gray.800">
                   Tip: You can manage cookies through your browser settings to maintain control over your

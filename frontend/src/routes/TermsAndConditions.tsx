@@ -4,10 +4,10 @@ import {
   Badge,
   Box,
   Container,
-  Divider,
   Heading,
   HStack,
   Icon,
+  Separator,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -34,7 +34,7 @@ export default function TermsAndConditions() {
         <Container maxW="4xl">
           <VStack
             align="start"
-            spacing={6}
+            gap={6}
             bg="white"
             p={{ base: 6, md: 10 }}
             borderRadius="2xl"
@@ -60,16 +60,16 @@ export default function TermsAndConditions() {
               Conditions:
             </Text>
 
-            <VStack align="start" spacing={4} color="gray.600">
+            <VStack align="start" gap={4} color="gray.600">
               {terms.map((term, index) => (
-                <HStack key={index} align="start" spacing={3}>
+                <HStack key={index} align="start" gap={3}>
                   <Icon as={FaCheckCircle} color="purple.500" mt={1} />
                   <Text>{term}</Text>
                 </HStack>
               ))}
             </VStack>
 
-            <Divider />
+            <Separator borderColor="gray.200" />
 
             <Heading size="md" color="gray.800" pt={2}>
               Contact Us
@@ -79,16 +79,8 @@ export default function TermsAndConditions() {
               You may contact us using the information below:
             </Text>
 
-            <VStack
-              align="start"
-              spacing={3}
-              bg="purple.50"
-              borderRadius="lg"
-              p={6}
-              w="full"
-              color="gray.700"
-            >
-              <HStack spacing={3}>
+            <VStack align="start" gap={3} bg="purple.50" borderRadius="lg" p={6} w="full" color="gray.700">
+              <HStack gap={3}>
                 <Icon as={FaMapMarkerAlt} color="purple.500" />
                 <Text>
                   <Text as="span" fontWeight="semibold">
@@ -97,7 +89,7 @@ export default function TermsAndConditions() {
                   Electronic City Phase I, Doddathoguru, Bengaluru, Karnataka, 560100
                 </Text>
               </HStack>
-              <HStack spacing={3}>
+              <HStack gap={3}>
                 <Icon as={FaPhoneAlt} color="purple.500" />
                 <Text>
                   <Text as="span" fontWeight="semibold">
@@ -106,7 +98,7 @@ export default function TermsAndConditions() {
                   +91 62048 72667
                 </Text>
               </HStack>
-              <HStack spacing={3}>
+              <HStack gap={3}>
                 <Icon as={FaEnvelope} color="purple.500" />
                 <Text>
                   <Text as="span" fontWeight="semibold">
