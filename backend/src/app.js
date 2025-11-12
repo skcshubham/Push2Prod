@@ -6,6 +6,8 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
 const cors = require("cors");
 
+require("./utils/cronjob");
+
 const app = express();
 
 app.use(express.json());
