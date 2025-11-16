@@ -17,6 +17,7 @@ import {
   FaHome,
   FaNewspaper,
   FaSignInAlt,
+  FaStar,
   FaUser,
   FaUserFriends,
 } from "react-icons/fa";
@@ -88,6 +89,7 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
 
   const menuItems = [
     { label: "Home", path: "/", icon: FaHome },
+    { label: LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PREMIUM, path: "/premium", icon: FaStar },
     { label: "Feed", path: "/feed", icon: FaNewspaper },
     { label: "Requests", path: "/requests", icon: FaUserFriends },
     { label: "Chats", path: "/chats", icon: FaComments },
@@ -135,6 +137,15 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                   </Text>
                 </>
               )}
+
+              <Text
+                color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
+                cursor="pointer"
+                _hover={{ color: THEME_CONSTANTS.COLORS.PRIMARY }}
+                onClick={() => navigate("/premium")}
+              >
+                {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PREMIUM}
+              </Text>
 
               {isLoggedIn ? (
                 <>
@@ -268,6 +279,10 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                 }}
                 onClick={() => navigate("/")}
               />
+
+              <Button variant="ghost" size="sm" onClick={() => navigate("/premium")}>
+                {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PREMIUM}
+              </Button>
 
               {isLoggedIn ? (
                 <IconButton onClick={onOpen} variant="outline" aria-label="Open menu">

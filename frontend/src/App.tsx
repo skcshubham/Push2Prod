@@ -6,6 +6,7 @@ import Feed from "./routes/Feed";
 import LandingPage from "./routes/LandingPage";
 import Profile from "./routes/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Premium from "./routes/Premium";
 import Requests from "./routes/Requests";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
@@ -25,12 +26,16 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/shipping-policy" element={<ShippingPolicy />} />
-          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route
             path="/cancellation-refund-policy"
             element={<CancellationRefundPolicy />}
           />
+          <Route path="/premium" element={<Premium />} />
           <Route
             path="/*"
             element={
@@ -45,7 +50,9 @@ function App() {
             }
           />
         </Routes>
-        <Toaster toaster={toaster}>{(toast) => <div>{toast.title}</div>}</Toaster>
+        <Toaster toaster={toaster}>
+          {(toast) => <div>{toast.title}</div>}
+        </Toaster>
       </Router>
     </AuthInitializer>
   );

@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import type { User } from "../types/user.types";
 
-const API_BASE_URL = location.hostname === "localhost" ? `http://localhost:8000` : `/api`;
+const API_BASE_URL =
+  location.hostname === "localhost" ? `http://localhost:8000` : `/api`;
 
 export const api = createApi({
   reducerPath: "api",
@@ -47,21 +48,33 @@ export const api = createApi({
       }),
       providesTags: ["User"],
     }),
-    updateUser: builder.mutation<{ message: string; data: User }, Partial<User>>({
+    updateUser: builder.mutation<
+      { message: string; data: User },
+      Partial<User>
+    >({
       query: (data) => ({
         url: "/profile/edit",
         method: "PATCH",
         body: data,
       }),
     }),
-    getFeed: builder.query<{ message: string; data: User[] }, { page?: number; limit?: number }>({
+    getFeed: builder.query<
+      { message: string; data: User[] },
+      { page?: number; limit?: number }
+    >({
       query: ({ page = 1, limit = 10 } = {}) => ({
         url: `/user/feed?page=${page}&limit=${limit}`,
         method: "GET",
       }),
     }),
     respondToFeedRequest: builder.mutation({
-      query: ({ status, toUserId }: { status: "interested" | "ignored"; toUserId: string }) => ({
+      query: ({
+        status,
+        toUserId,
+      }: {
+        status: "interested" | "ignored";
+        toUserId: string;
+      }) => ({
         url: `/request/send/${status}/${toUserId}`,
         method: "POST",
       }),
@@ -82,11 +95,24 @@ export const api = createApi({
       providesTags: ["User"],
     }),
     respondToRequest: builder.mutation({
-      query: ({ status, requestId }: { status: "accepted" | "rejected"; requestId: string }) => ({
+      query: ({
+        status,
+        requestId,
+      }: {
+        status: "accepted" | "rejected";
+        requestId: string;
+      }) => ({
         url: `/request/review/${status}/${requestId}`,
         method: "POST",
       }),
       invalidatesTags: [{ type: "User", id: "FEED" }],
+    }),
+    createOrder: builder.mutation({
+      query: ({ membershipType }: { membershipType: "silver" | "gold" }) => ({
+        url: "/payment/create",
+        method: "POST",
+        body: { membershipType },
+      }),
     }),
   }),
 });
@@ -102,4 +128,5 @@ export const {
   useGetReceivedRequestsQuery,
   useGetConnectionsQuery,
   useRespondToRequestMutation,
+  useCreateOrderMutation,
 } = api;

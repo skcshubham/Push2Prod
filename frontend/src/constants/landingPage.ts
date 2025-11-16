@@ -2,7 +2,8 @@ export const LANDING_PAGE_CONSTANTS = {
   APP: {
     NAME: "Push2Prod",
     LOGO: "🧑🏻‍💻 Push2Prod",
-    TAGLINE: "Connecting developers through code, creativity, and collaboration.",
+    TAGLINE:
+      "Connecting developers through code, creativity, and collaboration.",
   },
 
   HERO: {
@@ -54,47 +55,35 @@ export const LANDING_PAGE_CONSTANTS = {
   },
 
   PRICING: {
-    BADGE: "💰 Pricing Plans",
-    TITLE: "Simple, Transparent Pricing",
-    DESCRIPTION: "Choose the plan that fits your coding journey. No hidden fees, no surprises.",
+    BADGE: "💰 Premium Memberships",
+    TITLE: "Silver vs Gold — choose your upgrade",
+    DESCRIPTION:
+      "Pick the premium experience that matches your ambition. Every plan is built for devs who want more meaningful connections.",
     PLANS: {
-      FREE: {
-        NAME: "Free",
-        DESCRIPTION: "Perfect for getting started",
-        PRICE: "$0",
-        PERIOD: "forever",
-        CTA: "Get Started Free",
-        FEATURES: [
-          { text: "Basic profile matching", icon: "FaCode" },
-          { text: "Up to 10 matches per day", icon: "FaHeart" },
-          { text: "Community access", icon: "FaUsers" },
-        ],
-      },
-      PRO: {
-        NAME: "Pro",
-        BADGE: "Most Popular",
-        DESCRIPTION: "For serious developers",
-        PRICE: "$19",
+      SILVER: {
+        NAME: "Silver",
+        DESCRIPTION: "Unlock premium chat and higher reach",
+        PRICE: "₹79",
         PERIOD: "per month",
-        CTA: "Start Pro Trial",
+        CTA: "Choose Silver",
         FEATURES: [
-          { text: "Advanced matching algorithm", icon: "FaCode" },
-          { text: "Unlimited matches", icon: "FaHeart" },
-          { text: "Priority support", icon: "FaRocket" },
-          { text: "GitHub integration", icon: "FaGithub" },
+          { text: "Instant chat with any match", icon: "FaComments" },
+          { text: "100 connection requests per day", icon: "FaPaperPlane" },
+          { text: "Profile boosts every week", icon: "FaRocket" },
         ],
       },
-      ENTERPRISE: {
-        NAME: "Enterprise",
-        DESCRIPTION: "For teams and companies",
-        PRICE: "Custom",
-        PERIOD: "contact us",
-        CTA: "Contact Sales",
+      GOLD: {
+        NAME: "Gold",
+        BADGE: "Best Value",
+        DESCRIPTION: "Everything in Silver + exclusive perks",
+        PRICE: "₹199",
+        PERIOD: "per month",
+        CTA: "Go Gold",
         FEATURES: [
-          { text: "Custom matching criteria", icon: "FaCode" },
-          { text: "Team collaboration tools", icon: "FaUsers" },
-          { text: "Dedicated support", icon: "FaRocket" },
-          { text: "API access", icon: "FaGithub" },
+          { text: "All Silver membership benefits", icon: "FaCheckCircle" },
+          { text: "Blue tick verification", icon: "FaShieldAlt" },
+          { text: "Unlimited connection requests", icon: "FaInfinity" },
+          { text: "Top placement across the feed", icon: "FaStar" },
         ],
       },
     },
@@ -102,7 +91,8 @@ export const LANDING_PAGE_CONSTANTS = {
 
   TECH_STACK: {
     TITLE: "Built With Modern Technologies",
-    DESCRIPTION: "A full-stack application demonstrating current web development best practices",
+    DESCRIPTION:
+      "A full-stack application demonstrating current web development best practices",
     TECHNOLOGIES: [
       {
         name: "React",
@@ -148,6 +138,7 @@ export const LANDING_PAGE_CONSTANTS = {
     MENU_ITEMS: {
       FEATURES: "Features",
       PRICING: "Pricing",
+      PREMIUM: "Premium",
     },
     BUTTONS: {
       SIGN_IN: "Sign In",
