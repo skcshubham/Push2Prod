@@ -1,4 +1,5 @@
 import { clearUser, setUser } from "../store/slices/authSlice";
+import { clearPremiumStatus } from "../store/slices/premiumSlice";
 
 import type { User } from "../types/user.types";
 import { useDispatch } from "react-redux";
@@ -19,10 +20,13 @@ export default function AuthInitializer({ children }: AuthInitializerProps) {
   useEffect(() => {
     if (data && data.data) {
       // Token is valid, user is authenticated
+      // Clear any stale premium state from a previous session
+      dispatch(clearPremiumStatus());
       dispatch(setUser(data.data as User));
     } else if (error) {
       // Token is invalid or expired, clear auth state
       dispatch(clearUser());
+      dispatch(clearPremiumStatus());
     }
   }, [data, error, dispatch]);
 

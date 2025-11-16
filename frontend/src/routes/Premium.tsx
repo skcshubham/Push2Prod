@@ -19,13 +19,20 @@ import {
   FaHeart,
   FaShieldAlt,
 } from "react-icons/fa";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../store";
+import { setPremiumStatus } from "../store/slices/premiumSlice";
 
 import AppNavigation from "../components/AppNavigation";
 import Footer from "../components/Footer";
 import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import { THEME_CONSTANTS } from "../theme/constants";
-import { useCreateOrderMutation } from "../services/api";
+import {
+  useCreateOrderMutation,
+  useVerifyPremiumUserMutation,
+} from "../services/api";
 
 type MembershipPlan =
   (typeof LANDING_PAGE_CONSTANTS.PRICING.PLANS)[keyof typeof LANDING_PAGE_CONSTANTS.PRICING.PLANS];
@@ -75,6 +82,39 @@ const perkHighlights = [
 export default function Premium() {
   const navigate = useNavigate();
   const [createOrder] = useCreateOrderMutation();
+  const [verifyPremiumUser] = useVerifyPremiumUserMutation();
+  const dispatch = useDispatch();
+  const { isPremium, membershipType } = useSelector(
+    (state: RootState) => state.premium
+  );
+
+  // Scroll to top on mount
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const verifyPremium = async () => {
+    try {
+      const response = await verifyPremiumUser().unwrap();
+      if (response?.data) {
+        dispatch(
+          setPremiumStatus({
+            isPremium: Boolean(response.data.isPremium),
+            membershipType:
+              (response.data.membershipType as "silver" | "gold") ?? null,
+          })
+        );
+      }
+    } catch (error) {
+      console.error("Failed to verify premium user:", error);
+    }
+  };
+
+  // Verify on mount
+  React.useEffect(() => {
+    void verifyPremium();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handlePayment = async (membershipType: "silver" | "gold") => {
     try {
@@ -99,6 +139,7 @@ export default function Premium() {
         theme: {
           color: "#a855f7",
         },
+        handler: verifyPremium,
       };
 
       // Type assertion to avoid TypeScript error about Razorpay missing from window
@@ -238,96 +279,134 @@ export default function Premium() {
 
       <Container maxW="6xl" py={{ base: 12, md: 16 }}>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 8, md: 10 }}>
-          {membershipPlans.map((plan) => (
+          {/* If user is already premium, show their membership summary instead of purchase options */}
+          {isPremium ? (
             <Box
-              key={plan.NAME}
               bg="white"
               borderRadius={THEME_CONSTANTS.RADIUS.XL}
-              boxShadow={hasBadge(plan) ? "2xl" : "xl"}
+              boxShadow="xl"
               border="1px solid"
-              borderColor={hasBadge(plan) ? "purple.200" : "gray.100"}
+              borderColor="purple.200"
               p={{ base: 6, md: 8 }}
-              h="100%"
-              display="flex"
-              flexDirection="column"
               position="relative"
-              color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
-              _before={{
-                content: '""',
-                position: "absolute",
-                inset: "-1px",
-                borderRadius: THEME_CONSTANTS.RADIUS.XL,
-                padding: "1px",
-                background: hasBadge(plan)
-                  ? "linear-gradient(120deg, #F6D365, #FDA085)"
-                  : "linear-gradient(120deg, #A18CD1, #FBC2EB)",
-                WebkitMask:
-                  "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                WebkitMaskComposite: "xor",
-                pointerEvents: "none",
-                opacity: 0.5,
-              }}
             >
-              {hasBadge(plan) && (
-                <Badge
-                  colorScheme="purple"
-                  mb={4}
-                  borderRadius="full"
-                  px={4}
-                  py={1}
-                >
-                  {plan.BADGE}
-                </Badge>
-              )}
-              <Heading size="md" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
-                {plan.NAME} Membership
-              </Heading>
-              <Text mt={2} color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                {plan.DESCRIPTION}
-              </Text>
-
-              <Box mt={6}>
-                <Text
-                  fontSize="4xl"
-                  fontWeight="bold"
-                  color={THEME_CONSTANTS.COLORS.PRIMARY}
-                >
-                  {plan.PRICE}
-                </Text>
-                <Text
-                  fontSize="sm"
-                  color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
-                >
-                  {plan.PERIOD}
-                </Text>
-              </Box>
-
-              <VStack align="stretch" gap={3} mt={8} flex="1">
-                {plan.FEATURES.map((feature, idx) => (
-                  <HStack
-                    key={`${plan.NAME}-feature-${idx}`}
-                    gap={3}
-                    align="center"
-                  >
-                    <FaCheckCircle color="var(--chakra-colors-green-400)" />
-                    <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                      {feature.text}
-                    </Text>
-                  </HStack>
-                ))}
-              </VStack>
-
-              <Button
-                colorScheme="purple"
-                size="lg"
-                w="full"
-                mt={8}
-                onClick={() => handlePayment(plan.NAME as "silver" | "gold")}
+              <Badge
+                colorScheme={membershipType === "gold" ? "yellow" : "purple"}
+                mb={4}
+                borderRadius="full"
+                px={4}
+                py={1}
               >
-                {plan.CTA}
+                Active: {membershipType?.toUpperCase()}
+              </Badge>
+              <Heading size="md" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
+                You already have an active {membershipType} membership
+              </Heading>
+              <Text mt={3} color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                Enjoy your premium perks. You can upgrade anytime to explore
+                more benefits.
+              </Text>
+              <Button
+                mt={6}
+                colorScheme="purple"
+                variant="outline"
+                onClick={() => navigate("/feed")}
+              >
+                Go to Feed
               </Button>
             </Box>
-          ))}
+          ) : (
+            membershipPlans.map((plan) => (
+              <Box
+                key={plan.NAME}
+                bg="white"
+                borderRadius={THEME_CONSTANTS.RADIUS.XL}
+                boxShadow={hasBadge(plan) ? "2xl" : "xl"}
+                border="1px solid"
+                borderColor={hasBadge(plan) ? "purple.200" : "gray.100"}
+                p={{ base: 6, md: 8 }}
+                h="100%"
+                display="flex"
+                flexDirection="column"
+                position="relative"
+                color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
+                _before={{
+                  content: '""',
+                  position: "absolute",
+                  inset: "-1px",
+                  borderRadius: THEME_CONSTANTS.RADIUS.XL,
+                  padding: "1px",
+                  background: hasBadge(plan)
+                    ? "linear-gradient(120deg, #F6D365, #FDA085)"
+                    : "linear-gradient(120deg, #A18CD1, #FBC2EB)",
+                  WebkitMask:
+                    "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                  WebkitMaskComposite: "xor",
+                  pointerEvents: "none",
+                  opacity: 0.5,
+                }}
+              >
+                {hasBadge(plan) && (
+                  <Badge
+                    colorScheme="purple"
+                    mb={4}
+                    borderRadius="full"
+                    px={4}
+                    py={1}
+                  >
+                    {plan.BADGE}
+                  </Badge>
+                )}
+                <Heading size="md" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
+                  {plan.NAME} Membership
+                </Heading>
+                <Text mt={2} color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                  {plan.DESCRIPTION}
+                </Text>
+
+                <Box mt={6}>
+                  <Text
+                    fontSize="4xl"
+                    fontWeight="bold"
+                    color={THEME_CONSTANTS.COLORS.PRIMARY}
+                  >
+                    {plan.PRICE}
+                  </Text>
+                  <Text
+                    fontSize="sm"
+                    color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
+                  >
+                    {plan.PERIOD}
+                  </Text>
+                </Box>
+
+                <VStack align="stretch" gap={3} mt={8} flex="1">
+                  {plan.FEATURES.map((feature, idx) => (
+                    <HStack
+                      key={`${plan.NAME}-feature-${idx}`}
+                      gap={3}
+                      align="center"
+                    >
+                      <FaCheckCircle color="var(--chakra-colors-green-400)" />
+                      <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                        {feature.text}
+                      </Text>
+                    </HStack>
+                  ))}
+                </VStack>
+
+                <Button
+                  colorScheme="purple"
+                  size="lg"
+                  w="full"
+                  mt={8}
+                  onClick={() => handlePayment(plan.NAME as "silver" | "gold")}
+                >
+                  {plan.CTA}
+                </Button>
+              </Box>
+            ))
+          )}
         </SimpleGrid>
 
         <Box

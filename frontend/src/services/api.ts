@@ -114,6 +114,12 @@ export const api = createApi({
         body: { membershipType },
       }),
     }),
+    verifyPremiumUser: builder.mutation<any, void>({
+      query: () => ({
+        url: "/premium/verify",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -129,4 +135,5 @@ export const {
   useGetConnectionsQuery,
   useRespondToRequestMutation,
   useCreateOrderMutation,
+  useVerifyPremiumUserMutation,
 } = api;

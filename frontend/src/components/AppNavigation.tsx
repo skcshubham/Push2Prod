@@ -29,6 +29,7 @@ import { THEME_CONSTANTS } from "../theme/constants";
 import type { User } from "../types/user.types";
 import { api } from "../services/api";
 import { clearUser } from "../store/slices/authSlice";
+import { clearPremiumStatus } from "../store/slices/premiumSlice";
 import { useLogoutMutation } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
@@ -54,6 +55,7 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
     try {
       await logout().unwrap();
       dispatch(clearUser());
+      dispatch(clearPremiumStatus());
       dispatch(api.util.resetApiState());
       navigate("/");
       onClose();

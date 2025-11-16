@@ -70,6 +70,7 @@ export const LANDING_PAGE_CONSTANTS = {
           { text: "Instant chat with any match", icon: "FaComments" },
           { text: "100 connection requests per day", icon: "FaPaperPlane" },
           { text: "Profile boosts every week", icon: "FaRocket" },
+          { text: "Gray tick verification", icon: "FaShieldAlt" },
         ],
       },
       GOLD: {

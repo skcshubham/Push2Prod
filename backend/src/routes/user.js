@@ -2,6 +2,7 @@ const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require("../models/connectionRequest");
 const User = require("../models/user");
+const Payment = require("../models/payment");
 
 const userRouter = express.Router();
 
@@ -67,13 +68,33 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       return row.fromUserId;
     });
 
+    // Attach membershipType from latest successful payment if any
+    const userIds = connectionRequestUserData.map((u) => u._id);
+    const payments = await Payment.find({
+      userId: { $in: userIds },
+      status: { $in: ["paid", "captured", "authorized", "success"] },
+    }).sort({ createdAt: -1 });
+    const userIdToMembership = new Map();
+    for (const p of payments) {
+      if (!userIdToMembership.has(String(p.userId))) {
+        userIdToMembership.set(String(p.userId), p.notes?.membershipType || null);
+      }
+    }
+    const connectionRequestUserDataWithMembership = connectionRequestUserData.map((u) => {
+      const obj = u.toObject ? u.toObject() : u;
+      return {
+        ...obj,
+        membershipType: userIdToMembership.get(String(u._id)) || null,
+      };
+    });
+
     if (!allConnections.length) {
       throw new Error("No Connection Requests found.");
     }
 
     res.status(200).json({
       message: "All Connection Requests.",
-      data: connectionRequestUserData,
+      data: connectionRequestUserDataWithMembership,
     });
   } catch (error) {
     res.status(400).json({ message: `Some Error Occurred: ${error.message}`, data: {} });
@@ -218,9 +239,29 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
       .skip(skip)
       .limit(limit);
 
+    // Attach membershipType from latest successful payment if any
+    const userIds = allUsers.map((u) => u._id);
+    const payments = await Payment.find({
+      userId: { $in: userIds },
+      status: { $in: ["paid", "captured", "authorized", "success"] },
+    }).sort({ createdAt: -1 });
+    const userIdToMembership = new Map();
+    for (const p of payments) {
+      if (!userIdToMembership.has(String(p.userId))) {
+        userIdToMembership.set(String(p.userId), p.notes?.membershipType || null);
+      }
+    }
+    const usersWithMembership = allUsers.map((u) => {
+      const obj = u.toObject ? u.toObject() : u;
+      return {
+        ...obj,
+        membershipType: userIdToMembership.get(String(u._id)) || null,
+      };
+    });
+
     res.status(200).json({
       message: "Your possible matches.",
-      data: allUsers,
+      data: usersWithMembership,
     });
   } catch (error) {
     res.status(400).json({ message: `Some Error Occurred: ${error.message}`, data: {} });

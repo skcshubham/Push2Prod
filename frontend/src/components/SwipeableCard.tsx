@@ -1,9 +1,18 @@
-import { Badge, Box, Flex, HStack, IconButton, Text, VStack } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Flex,
+  HStack,
+  IconButton,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { FaBirthdayCake, FaHeart, FaTimes } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 
 import { THEME_CONSTANTS } from "../theme/constants";
 import type { User } from "../types/user.types";
+import MembershipBadge from "./MembershipBadge";
 
 interface SwipeableCardProps {
   user: User;
@@ -11,10 +20,18 @@ interface SwipeableCardProps {
   onSwipeRight: () => void;
 }
 
-export default function SwipeableCard({ user, onSwipeLeft, onSwipeRight }: SwipeableCardProps) {
+export default function SwipeableCard({
+  user,
+  onSwipeLeft,
+  onSwipeRight,
+}: SwipeableCardProps) {
   const [isAnimating, setIsAnimating] = useState(false);
-  const [animationDirection, setAnimationDirection] = useState<"left" | "right" | null>(null);
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [animationDirection, setAnimationDirection] = useState<
+    "left" | "right" | null
+  >(null);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
+    null
+  );
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -68,7 +85,10 @@ export default function SwipeableCard({ user, onSwipeLeft, onSwipeRight }: Swipe
     const minSwipeDistance = 50;
     const maxVerticalMovement = 100;
 
-    if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaY) < maxVerticalMovement) {
+    if (
+      Math.abs(deltaX) > minSwipeDistance &&
+      Math.abs(deltaY) < maxVerticalMovement
+    ) {
       if (deltaX > 0) {
         handleLike();
       } else {
@@ -105,7 +125,10 @@ export default function SwipeableCard({ user, onSwipeLeft, onSwipeRight }: Swipe
     const minSwipeDistance = 50;
     const maxVerticalMovement = 100;
 
-    if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaY) < maxVerticalMovement) {
+    if (
+      Math.abs(deltaX) > minSwipeDistance &&
+      Math.abs(deltaY) < maxVerticalMovement
+    ) {
       if (deltaX > 0) {
         handleLike();
       } else {
@@ -217,7 +240,9 @@ export default function SwipeableCard({ user, onSwipeLeft, onSwipeRight }: Swipe
       }
       zIndex={isAnimating ? getAnimationStyles().zIndex : "auto"}
       transition={
-        isAnimating ? "all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "transform 0.1s ease-out"
+        isAnimating
+          ? "all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+          : "transform 0.1s ease-out"
       }
       pointerEvents={isAnimating ? "none" : "auto"}
       flexShrink={0}
@@ -233,7 +258,8 @@ export default function SwipeableCard({ user, onSwipeLeft, onSwipeRight }: Swipe
         setTouchStart(null);
       }}
       _hover={{
-        transform: !isAnimating && dragOffset.x === 0 ? "translateY(-4px)" : undefined,
+        transform:
+          !isAnimating && dragOffset.x === 0 ? "translateY(-4px)" : undefined,
         boxShadow:
           !isAnimating && dragOffset.x === 0
             ? {
@@ -260,7 +286,11 @@ export default function SwipeableCard({ user, onSwipeLeft, onSwipeRight }: Swipe
         <Box
           width="100%"
           height="100%"
-          bg={user.photoUrl ? `url(${user.photoUrl})` : THEME_CONSTANTS.GRADIENTS.SECONDARY}
+          bg={
+            user.photoUrl
+              ? `url(${user.photoUrl})`
+              : THEME_CONSTANTS.GRADIENTS.SECONDARY
+          }
           bgSize="cover"
           bgPos="center"
           bgRepeat="no-repeat"
@@ -341,23 +371,31 @@ export default function SwipeableCard({ user, onSwipeLeft, onSwipeRight }: Swipe
             align="center"
             width="100%"
           >
-            <Text
-              fontSize={{
-                base: "sm",
-                sm: "lg",
-                md: "lg",
-                lg: "xl",
-                xl: "2xl",
-              }}
-              fontWeight="bold"
-              color="gray.800"
-              truncate
-              flex="1"
-              minWidth="0"
-            >
-              {user.firstName}
-              {user.lastName && ` ${user.lastName}`}
-            </Text>
+            <HStack align="center" gap={2} flex="1" minWidth="0">
+              <Text
+                fontSize={{
+                  base: "sm",
+                  sm: "lg",
+                  md: "lg",
+                  lg: "xl",
+                  xl: "2xl",
+                }}
+                fontWeight="bold"
+                color="gray.800"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                whiteSpace="nowrap"
+                flex="0 1 auto"
+              >
+                {user.firstName}
+                {user.lastName && ` ${user.lastName}`}
+              </Text>
+              {user.membershipType ? (
+                <Box flex="0 0 auto">
+                  <MembershipBadge type={user.membershipType} size={16} />
+                </Box>
+              ) : null}
+            </HStack>
             {user.gender && (
               <Badge
                 colorScheme="purple"

@@ -1,4 +1,7 @@
-import { Box, Heading, Input, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Input, Text, VStack } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
+import MembershipBadge from "./MembershipBadge";
 
 import { THEME_CONSTANTS } from "../theme/constants";
 import type { User } from "../types/user.types";
@@ -19,6 +22,8 @@ export default function ProfileHeader({
   formData,
   onInputChange,
 }: ProfileHeaderProps) {
+  const { membershipType } = useSelector((state: RootState) => state.premium);
+
   return (
     <Box
       bg={THEME_CONSTANTS.GRADIENTS.PRIMARY}
@@ -31,7 +36,11 @@ export default function ProfileHeader({
         width={{ base: "80px", md: "100px" }}
         height={{ base: "80px", md: "100px" }}
         borderRadius={THEME_CONSTANTS.RADIUS.FULL}
-        bgImage={user?.photoUrl ? `url(${user.photoUrl})` : THEME_CONSTANTS.GRADIENTS.SECONDARY}
+        bgImage={
+          user?.photoUrl
+            ? `url(${user.photoUrl})`
+            : THEME_CONSTANTS.GRADIENTS.SECONDARY
+        }
         bgSize="cover"
         bgPos="center"
         mb={THEME_CONSTANTS.SPACING.MD}
@@ -99,7 +108,14 @@ export default function ProfileHeader({
             color={THEME_CONSTANTS.COLORS.WHITE}
             fontWeight="bold"
           >
-            {user?.firstName} {user?.lastName}
+            <HStack justify="center" align="center">
+              <Text as="span">
+                {user?.firstName} {user?.lastName}
+              </Text>
+              {membershipType ? (
+                <MembershipBadge type={membershipType} size={14} />
+              ) : null}
+            </HStack>
           </Heading>
         )}
 
@@ -124,7 +140,11 @@ export default function ProfileHeader({
           color="white"
           backdropFilter="blur(10px)"
         >
-          💻 Developer since {new Date(user?.createdAt || Date.now()).getFullYear()}
+          {membershipType
+            ? `⭐ ${membershipType.toUpperCase()} member`
+            : `💻 Developer since ${new Date(
+                user?.createdAt || Date.now()
+              ).getFullYear()}`}
         </Box>
       </VStack>
     </Box>

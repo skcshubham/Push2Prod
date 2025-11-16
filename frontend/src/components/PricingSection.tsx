@@ -26,10 +26,12 @@ import {
 
 import { LANDING_PAGE_CONSTANTS } from "../constants/landingPage";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { THEME_CONSTANTS } from "../theme/constants";
 
 export default function PricingSection() {
   const sectionPadding = useBreakpointValue({ base: 12, md: 20 });
+  const navigate = useNavigate();
   type Plan = (typeof LANDING_PAGE_CONSTANTS.PRICING.PLANS)[keyof typeof LANDING_PAGE_CONSTANTS.PRICING.PLANS];
   const hasBadge = (plan: Plan): plan is Plan & { BADGE: string } =>
     "BADGE" in plan && typeof (plan as any).BADGE === "string";
@@ -197,8 +199,14 @@ export default function PricingSection() {
                       ))}
                     </VStack>
 
-                    <Button colorScheme="purple" w="full" mt="auto" variant={isFeatured ? "solid" : "outline"}>
-                      {plan.CTA}
+                    <Button
+                      colorScheme="purple"
+                      w="full"
+                      mt="auto"
+                      variant={isFeatured ? "solid" : "outline"}
+                      onClick={() => navigate("/premium")}
+                    >
+                      See more
                     </Button>
                   </VStack>
                 </Box>

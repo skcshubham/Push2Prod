@@ -17,6 +17,7 @@ import { useLazyGetFeedQuery, useRespondToFeedRequestMutation } from "../service
 
 import AppNavigation from "../components/AppNavigation";
 import type { User } from "../types/user.types";
+import MembershipBadge from "../components/MembershipBadge";
 
 export default function Feed() {
   const [limit, setLimit] = useState(5);
@@ -311,6 +312,11 @@ export default function Feed() {
                       >
                         {currentUser.firstName} {currentUser.lastName}
                       </Heading>
+                      {currentUser.membershipType ? (
+                        <Box flex="0 0 auto">
+                          <MembershipBadge type={currentUser.membershipType} size={16} />
+                        </Box>
+                      ) : null}
                       {currentUser.gender && (
                         <Badge
                           colorScheme="purple"

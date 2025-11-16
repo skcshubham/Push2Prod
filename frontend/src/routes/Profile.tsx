@@ -10,7 +10,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useGetUserQuery, useUpdateUserMutation } from "../services/api";
+import { useDispatch } from "react-redux";
+import { useGetUserQuery, useUpdateUserMutation, useVerifyPremiumUserMutation } from "../services/api";
 
 import AboutSection from "../components/AboutSection";
 import AdditionalInfoSection from "../components/AdditionalInfoSection";
@@ -19,10 +20,13 @@ import ProfileHeader from "../components/ProfileHeader";
 import SkillsSection from "../components/SkillsSection";
 import { THEME_CONSTANTS } from "../theme/constants";
 import type { User } from "../types/user.types";
+import { setPremiumStatus } from "../store/slices/premiumSlice";
 
 export default function Profile() {
   const { data: response, isLoading, error, refetch } = useGetUserQuery();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+  const [verifyPremiumUser] = useVerifyPremiumUserMutation();
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -47,6 +51,26 @@ export default function Profile() {
       });
     }
   }, [response]);
+
+  // Verify premium status on profile load so badges render in header
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const res = await verifyPremiumUser().unwrap();
+        if (res?.data) {
+          dispatch(
+            setPremiumStatus({
+              isPremium: Boolean(res.data.isPremium),
+              membershipType: (res.data.membershipType as "silver" | "gold") ?? null,
+            })
+          );
+        }
+      } catch {
+        // ignore
+      }
+    };
+    void run();
+  }, [dispatch, verifyPremiumUser]);
 
   const [newSkill, setNewSkill] = useState("");
 
