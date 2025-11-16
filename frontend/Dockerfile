@@ -6,7 +6,9 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine AS runtime
-COPY --from=build /usr/src/app/dist/* /var/www/html/
-EXPOSE 3000
+# Serve built app
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+# SPA + API proxy to backend service for Docker-only mode
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-
