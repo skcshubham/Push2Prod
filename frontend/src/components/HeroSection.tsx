@@ -93,7 +93,12 @@ export default function HeroSection() {
 
       <FloatingEmojis />
 
-      <Container maxW="container.lg" textAlign="center" px={{ base: 4, md: 6 }} position="relative">
+      <Container
+        maxW="container.lg"
+        textAlign="center"
+        px={{ base: 4, md: 6 }}
+        position="relative"
+      >
         <VStack gap={{ base: 1, md: 2 }}>
           <Box
             position="relative"
@@ -102,7 +107,8 @@ export default function HeroSection() {
               position: "absolute",
               inset: "-2px",
               borderRadius: "full",
-              background: "linear-gradient(45deg, purple.400, pink.400, blue.400)",
+              background:
+                "linear-gradient(45deg, purple.400, pink.400, blue.400)",
               opacity: 0.3,
               animation: "spin 3s linear infinite",
             }}
@@ -145,7 +151,8 @@ export default function HeroSection() {
                 transform: "translateX(-50%)",
                 width: "100px",
                 height: "4px",
-                background: "linear-gradient(90deg, pink.400, purple.400, blue.400)",
+                background:
+                  "linear-gradient(90deg, pink.400, purple.400, blue.400)",
                 borderRadius: "full",
                 opacity: 0.6,
               }}
@@ -190,7 +197,8 @@ export default function HeroSection() {
                 transform: "translateX(-50%)",
                 width: "60px",
                 height: "2px",
-                background: "linear-gradient(90deg, transparent, pink.300, transparent)",
+                background:
+                  "linear-gradient(90deg, transparent, pink.300, transparent)",
                 borderRadius: "full",
               }}
             >
@@ -218,7 +226,7 @@ export default function HeroSection() {
                 fontWeight="bold"
                 fontSize={{ base: "md", md: "lg" }}
                 animation="fadeInUp 1s ease-out 0.4s both"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/feed")}
                 _hover={{
                   transform: "translateY(-4px) scale(1.03)",
                   boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)",
@@ -252,6 +260,7 @@ export default function HeroSection() {
                 size={{ base: "lg", md: "xl" }}
                 variant="outline"
                 color={THEME_CONSTANTS.COLORS.WHITE}
+                onClick={() => navigate("/signup")}
                 borderColor="rgba(255, 255, 255, 0.3)"
                 borderWidth="2px"
                 animation="fadeInUp 1s ease-out 0.6s both"
