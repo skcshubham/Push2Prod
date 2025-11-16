@@ -11,8 +11,6 @@ services:
       - "8000:8000"
     networks:
       - push2prod-net
-    depends_on:
-      - mongo
 
   frontend:
     build:
@@ -25,21 +23,6 @@ services:
     depends_on:
       - backend
 
-  mongo:
-    image: mongo:6
-    container_name: push2prod-mongo
-    restart: unless-stopped
-    volumes:
-      - mongo_data:/data/db
-    networks:
-      - push2prod-net
-    ports:
-      - "27017:27017"
-
 networks:
   push2prod-net:
     driver: bridge
-
-volumes:
-  mongo_data:
-    driver: local
