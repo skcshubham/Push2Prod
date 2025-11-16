@@ -30,6 +30,9 @@ import { THEME_CONSTANTS } from "../theme/constants";
 
 export default function PricingSection() {
   const sectionPadding = useBreakpointValue({ base: 12, md: 20 });
+  type Plan = (typeof LANDING_PAGE_CONSTANTS.PRICING.PLANS)[keyof typeof LANDING_PAGE_CONSTANTS.PRICING.PLANS];
+  const hasBadge = (plan: Plan): plan is Plan & { BADGE: string } =>
+    "BADGE" in plan && typeof (plan as any).BADGE === "string";
 
   const iconMap = {
     FaCode,
@@ -107,7 +110,7 @@ export default function PricingSection() {
 
           <SimpleGrid columns={{ base: 1, md: plans.length }} gap={{ base: 6, md: 8 }}>
             {plans.map((plan) => {
-              const isFeatured = Boolean(plan.BADGE);
+              const isFeatured = hasBadge(plan);
 
               return (
                 <Box
@@ -146,7 +149,7 @@ export default function PricingSection() {
                       : undefined
                   }
                 >
-                  {plan.BADGE && (
+                  {hasBadge(plan) && (
                     <Badge
                       position="absolute"
                       top={-2}
