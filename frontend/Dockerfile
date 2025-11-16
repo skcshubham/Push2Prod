@@ -5,6 +5,9 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
+FROM scratch AS artifact
+COPY --from=build /usr/src/app/dist /dist
+
 FROM nginx:alpine AS runtime
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
