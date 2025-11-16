@@ -37,16 +37,21 @@ interface AppNavigationProps {
   scrollToSection?: (sectionId: string) => void;
 }
 
-export default function AppNavigation({ scrollToSection }: AppNavigationProps = {}) {
+export default function AppNavigation({
+  scrollToSection,
+}: AppNavigationProps = {}) {
   const dispatch = useDispatch();
   const { open, onOpen, onClose } = useDisclosure();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const [logout, { isLoading: isLoggingOut }] = useLogoutMutation();
   const isAuthenticated = useSelector(
-    (state: { auth: { isAuthenticated: boolean } }) => state.auth.isAuthenticated
+    (state: { auth: { isAuthenticated: boolean } }) =>
+      state.auth.isAuthenticated
   );
-  const loggedInUser = useSelector((state: { auth: { user: User | null } }) => state.auth.user);
+  const loggedInUser = useSelector(
+    (state: { auth: { user: User | null } }) => state.auth.user
+  );
 
   const user = loggedInUser;
   const isLoggedIn = isAuthenticated || !!user;
@@ -75,7 +80,10 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -91,7 +99,11 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
 
   const menuItems = [
     { label: "Home", path: "/", icon: FaHome },
-    { label: LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PREMIUM, path: "/premium", icon: FaStar },
+    {
+      label: LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PREMIUM,
+      path: "/premium",
+      icon: FaStar,
+    },
     { label: "Feed", path: "/feed", icon: FaNewspaper },
     { label: "Requests", path: "/requests", icon: FaUserFriends },
     { label: "Chats", path: "/chats", icon: FaComments },
@@ -118,7 +130,10 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
               {LANDING_PAGE_CONSTANTS.APP.LOGO}
             </Heading>
 
-            <HStack gap={THEME_CONSTANTS.SPACING.MD} display={{ base: "none", md: "flex" }}>
+            <HStack
+              gap={THEME_CONSTANTS.SPACING.MD}
+              display={{ base: "none", md: "flex" }}
+            >
               {scrollToSection && (
                 <>
                   <Text
@@ -129,25 +144,8 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                   >
                     {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.FEATURES}
                   </Text>
-                  <Text
-                    color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
-                    cursor="pointer"
-                    _hover={{ color: THEME_CONSTANTS.COLORS.PRIMARY }}
-                    onClick={() => scrollToSection("pricing")}
-                  >
-                    {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PRICING}
-                  </Text>
                 </>
               )}
-
-              <Text
-                color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
-                cursor="pointer"
-                _hover={{ color: THEME_CONSTANTS.COLORS.PRIMARY }}
-                onClick={() => navigate("/premium")}
-              >
-                {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PREMIUM}
-              </Text>
 
               {isLoggedIn ? (
                 <>
@@ -159,7 +157,11 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                       display={{ base: "none", lg: "block" }}
                     >
                       Welcome,{" "}
-                      <Text as="span" color={THEME_CONSTANTS.COLORS.PRIMARY} fontWeight="semibold">
+                      <Text
+                        as="span"
+                        color={THEME_CONSTANTS.COLORS.PRIMARY}
+                        fontWeight="semibold"
+                      >
                         {user?.firstName}
                       </Text>
                       ! 👋
@@ -189,7 +191,10 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                         onClick={() => {
                           setIsDropdownOpen(!isDropdownOpen);
                         }}
-                        _hover={{ transform: "scale(1.05)", transition: "transform 0.2s" }}
+                        _hover={{
+                          transform: "scale(1.05)",
+                          transition: "transform 0.2s",
+                        }}
                       >
                         {!user?.photoUrl && user?.firstName?.[0]?.toUpperCase()}
                       </Box>
@@ -210,8 +215,17 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                           py={2}
                         >
                           <VStack gap={0} align="stretch">
-                            <Box px={4} py={3} borderBottom="1px solid" borderColor="gray.100">
-                              <Text fontWeight="semibold" fontSize="sm" color="gray.700">
+                            <Box
+                              px={4}
+                              py={3}
+                              borderBottom="1px solid"
+                              borderColor="gray.100"
+                            >
+                              <Text
+                                fontWeight="semibold"
+                                fontSize="sm"
+                                color="gray.700"
+                              >
                                 {user?.firstName} {user?.lastName}
                               </Text>
                               <Text fontSize="xs" color="gray.500">
@@ -246,7 +260,11 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                             >
                               <HStack gap={2}>
                                 <FaSignInAlt size={14} color="red" />
-                                <Text fontSize="sm" color="red.600" fontWeight="medium">
+                                <Text
+                                  fontSize="sm"
+                                  color="red.600"
+                                  fontWeight="medium"
+                                >
                                   Logout
                                 </Text>
                               </HStack>
@@ -259,10 +277,18 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                 </>
               ) : (
                 <>
-                  <Button colorScheme="purple" size="sm" onClick={() => navigate("/signin")}>
+                  <Button
+                    colorScheme="purple"
+                    size="sm"
+                    onClick={() => navigate("/signin")}
+                  >
                     Login
                   </Button>
-                  <Button colorScheme="purple" size="sm" onClick={() => navigate("/signup")}>
+                  <Button
+                    colorScheme="purple"
+                    size="sm"
+                    onClick={() => navigate("/signup")}
+                  >
                     Create Profile
                   </Button>
                 </>
@@ -282,20 +308,36 @@ export default function AppNavigation({ scrollToSection }: AppNavigationProps = 
                 onClick={() => navigate("/")}
               />
 
-              <Button variant="ghost" size="sm" onClick={() => navigate("/premium")}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate("/premium")}
+              >
                 {LANDING_PAGE_CONSTANTS.NAVIGATION.MENU_ITEMS.PREMIUM}
               </Button>
 
               {isLoggedIn ? (
-                <IconButton onClick={onOpen} variant="outline" aria-label="Open menu">
+                <IconButton
+                  onClick={onOpen}
+                  variant="outline"
+                  aria-label="Open menu"
+                >
                   <FaBars />
                 </IconButton>
               ) : (
                 <>
-                  <Button colorScheme="purple" size="sm" onClick={() => navigate("/signin")}>
+                  <Button
+                    colorScheme="purple"
+                    size="sm"
+                    onClick={() => navigate("/signin")}
+                  >
                     Login
                   </Button>
-                  <Button colorScheme="purple" size="sm" onClick={() => navigate("/signup")}>
+                  <Button
+                    colorScheme="purple"
+                    size="sm"
+                    onClick={() => navigate("/signup")}
+                  >
                     Create Profile
                   </Button>
                 </>

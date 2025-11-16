@@ -14,12 +14,13 @@ import {
 import {
   FaBolt,
   FaCheckCircle,
+  FaChevronRight,
   FaChartLine,
   FaCrown,
   FaHeart,
   FaShieldAlt,
 } from "react-icons/fa";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../store";
@@ -40,6 +41,10 @@ type MembershipPlan =
 const membershipPlans = Object.values(
   LANDING_PAGE_CONSTANTS.PRICING.PLANS
 ) as MembershipPlan[];
+const sortedMembershipPlans = [...membershipPlans].sort((a, b) => {
+  const rank = (name: string) => (name.toLowerCase() === "gold" ? 0 : 1);
+  return rank(a.NAME) - rank(b.NAME);
+});
 
 const hasBadge = (
   plan: MembershipPlan
@@ -88,8 +93,11 @@ export default function Premium() {
     (state: RootState) => state.premium
   );
 
-  // Scroll to top on mount
-  React.useEffect(() => {
+  useEffect(() => {
+    verifyPremium();
+  }, []);
+
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
@@ -110,12 +118,6 @@ export default function Premium() {
     }
   };
 
-  // Verify on mount
-  React.useEffect(() => {
-    void verifyPremium();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handlePayment = async (membershipType: "silver" | "gold") => {
     try {
       const order = await createOrder({
@@ -134,7 +136,6 @@ export default function Premium() {
         prefill: {
           name: notes.firstName + " " + notes.lastName,
           email: notes.emailId,
-          contact: "9999999999",
         },
         theme: {
           color: "#a855f7",
@@ -159,26 +160,22 @@ export default function Premium() {
       <AppNavigation />
 
       <Box
-        bgGradient="linear(to-br, purple.700, blue.600)"
-        color="white"
+        bg="white"
+        color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
         position="relative"
         overflow="hidden"
       >
+        {/* Light SaaS hero */}
         <Box
           position="absolute"
-          top="-80px"
-          right="-120px"
-          width="320px"
-          height="320px"
-          bg="whiteAlpha.300"
-          borderRadius="full"
-          filter="blur(80px)"
+          inset={0}
+          bgGradient="linear(to-br, purple.50, blue.50)"
         />
         <Container maxW="6xl" py={{ base: 16, md: 24 }} position="relative">
           <VStack gap={{ base: 6, md: 8 }}>
             <Badge
-              colorScheme="blackAlpha"
-              bg="whiteAlpha.200"
+              colorScheme="purple"
+              bg="purple.100"
               px={4}
               py={2}
               borderRadius="full"
@@ -190,7 +187,9 @@ export default function Premium() {
               px={{ base: 4, md: 6 }}
               py={{ base: 3, md: 4 }}
               borderRadius="3xl"
-              boxShadow="0 20px 60px rgba(0, 0, 0, 0.25)"
+              border="1px solid"
+              borderColor="gray.100"
+              boxShadow="sm"
             >
               <Heading
                 size={{ base: "xl", md: "3xl" }}
@@ -207,7 +206,9 @@ export default function Premium() {
               borderRadius="3xl"
               px={{ base: 4, md: 6 }}
               py={{ base: 4, md: 5 }}
-              boxShadow="0 18px 50px rgba(0, 0, 0, 0.2)"
+              border="1px solid"
+              borderColor="gray.100"
+              boxShadow="sm"
             >
               <Text
                 fontSize={{ base: "md", md: "lg" }}
@@ -221,6 +222,22 @@ export default function Premium() {
                 throttled.
               </Text>
             </Box>
+            <HStack
+              opacity={0.9}
+              gap={{ base: 4, md: 8 }}
+              flexWrap="wrap"
+              justify="center"
+            >
+              <Badge variant="subtle" colorScheme="purple" borderRadius="md">
+                Trusted by developers
+              </Badge>
+              <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                7‑day money‑back guarantee
+              </Text>
+              <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                Secure payments by Razorpay
+              </Text>
+            </HStack>
           </VStack>
         </Container>
       </Box>
@@ -256,19 +273,31 @@ export default function Premium() {
               p={{ base: 5, md: 6 }}
               gap={4}
               color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
+              transition="all 200ms ease"
+              _hover={{
+                transform: "translateY(-4px)",
+                boxShadow: "xl",
+              }}
+              position="relative"
+              _before={{
+                content: '""',
+                position: "absolute",
+                inset: 0,
+                borderRadius: "inherit",
+                padding: "1px",
+                background:
+                  "linear-gradient(120deg, rgba(168,85,247,0.35), rgba(59,130,246,0.35))",
+                WebkitMask:
+                  "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                WebkitMaskComposite: "xor",
+                pointerEvents: "none",
+                opacity: 0.6,
+              }}
             >
-              <Box
-                w="12"
-                h="12"
-                borderRadius="xl"
-                bgGradient="linear(to-br, purple.500, blue.500)"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Icon as={perk.icon} color="white" boxSize={5} />
-              </Box>
-              <Heading size="md">{perk.title}</Heading>
+              <HStack gap={3} align="center">
+                <Icon as={perk.icon} color="purple.500" boxSize={5} />
+                <Heading size="md">{perk.title}</Heading>
+              </HStack>
               <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
                 {perk.description}
               </Text>
@@ -279,16 +308,16 @@ export default function Premium() {
 
       <Container maxW="6xl" py={{ base: 12, md: 16 }}>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 8, md: 10 }}>
-          {/* If user is already premium, show their membership summary instead of purchase options */}
-          {isPremium ? (
+          {isPremium ? ( // If user is already premium, show their membership summary instead of purchase options
             <Box
               bg="white"
               borderRadius={THEME_CONSTANTS.RADIUS.XL}
               boxShadow="xl"
               border="1px solid"
-              borderColor="purple.200"
+              borderColor="gray.100"
               p={{ base: 6, md: 8 }}
               position="relative"
+              overflow="hidden"
             >
               <Badge
                 colorScheme={membershipType === "gold" ? "yellow" : "purple"}
@@ -311,12 +340,16 @@ export default function Premium() {
                 colorScheme="purple"
                 variant="outline"
                 onClick={() => navigate("/feed")}
+                _hover={{ transform: "translateX(2px)" }}
               >
-                Go to Feed
+                <HStack>
+                  <Text>Go to Feed</Text>
+                  <Icon as={FaChevronRight} />
+                </HStack>
               </Button>
             </Box>
           ) : (
-            membershipPlans.map((plan) => (
+            sortedMembershipPlans.map((plan) => (
               <Box
                 key={plan.NAME}
                 bg="white"
@@ -324,12 +357,17 @@ export default function Premium() {
                 boxShadow={hasBadge(plan) ? "2xl" : "xl"}
                 border="1px solid"
                 borderColor={hasBadge(plan) ? "purple.200" : "gray.100"}
-                p={{ base: 6, md: 8 }}
+                p={0}
                 h="100%"
                 display="flex"
                 flexDirection="column"
                 position="relative"
                 color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
+                transition="all 220ms ease"
+                _hover={{
+                  transform: "translateY(-6px)",
+                  boxShadow: hasBadge(plan) ? "3xl" : "2xl",
+                }}
                 _before={{
                   content: '""',
                   position: "absolute",
@@ -346,64 +384,147 @@ export default function Premium() {
                   opacity: 0.5,
                 }}
               >
-                {hasBadge(plan) && (
-                  <Badge
-                    colorScheme="purple"
-                    mb={4}
-                    borderRadius="full"
-                    px={4}
-                    py={1}
-                  >
-                    {plan.BADGE}
-                  </Badge>
+                {/* Gold crown accent */}
+                {plan.NAME.toLowerCase() === "gold" && (
+                  <Icon
+                    as={FaCrown}
+                    color="yellow.400"
+                    position="absolute"
+                    top={3}
+                    right={3}
+                    boxSize={5}
+                  />
                 )}
-                <Heading size="md" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
-                  {plan.NAME} Membership
-                </Heading>
-                <Text mt={2} color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                  {plan.DESCRIPTION}
-                </Text>
-
-                <Box mt={6}>
-                  <Text
-                    fontSize="4xl"
-                    fontWeight="bold"
-                    color={THEME_CONSTANTS.COLORS.PRIMARY}
-                  >
-                    {plan.PRICE}
-                  </Text>
-                  <Text
-                    fontSize="sm"
-                    color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
-                  >
-                    {plan.PERIOD}
-                  </Text>
-                </Box>
-
-                <VStack align="stretch" gap={3} mt={8} flex="1">
-                  {plan.FEATURES.map((feature, idx) => (
-                    <HStack
-                      key={`${plan.NAME}-feature-${idx}`}
-                      gap={3}
-                      align="center"
-                    >
-                      <FaCheckCircle color="var(--chakra-colors-green-400)" />
-                      <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
-                        {feature.text}
-                      </Text>
-                    </HStack>
-                  ))}
-                </VStack>
-
-                <Button
-                  colorScheme="purple"
-                  size="lg"
-                  w="full"
-                  mt={8}
-                  onClick={() => handlePayment(plan.NAME as "silver" | "gold")}
+                {/* Header band */}
+                <Box
+                  bgGradient={
+                    plan.NAME.toLowerCase() === "gold"
+                      ? "linear(to-r, yellow.200, orange.200)"
+                      : "linear(to-r, purple.200, pink.200)"
+                  }
+                  color="blackAlpha.800"
+                  borderTopRadius={THEME_CONSTANTS.RADIUS.XL}
+                  px={{ base: 6, md: 8 }}
+                  py={{ base: 4, md: 5 }}
+                  borderBottom="1px solid"
+                  borderColor="blackAlpha.200"
                 >
-                  {plan.CTA}
-                </Button>
+                  <HStack justify="space-between">
+                    <Heading size="md">{plan.NAME} Membership</Heading>
+                    {plan.NAME.toLowerCase() === "gold" ? (
+                      <Badge variant="solid" colorScheme="blackAlpha">
+                        Best value
+                      </Badge>
+                    ) : (
+                      <Badge
+                        variant="solid"
+                        colorScheme="blackAlpha"
+                        visibility="hidden"
+                      >
+                        Best value
+                      </Badge>
+                    )}
+                  </HStack>
+                </Box>
+                <Box
+                  px={{ base: 6, md: 8 }}
+                  py={{ base: 6, md: 8 }}
+                  flex={1}
+                  display="flex"
+                  flexDirection="column"
+                >
+                  <Stack gap={4} flex={1}>
+                    <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                      {plan.DESCRIPTION}
+                    </Text>
+                    <Box display="flex" alignItems="baseline" gap={2}>
+                      <Text
+                        fontSize="4xl"
+                        fontWeight="bold"
+                        color={THEME_CONSTANTS.COLORS.PRIMARY}
+                      >
+                        {plan.PRICE}
+                      </Text>
+                      <Text
+                        fontSize="sm"
+                        color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
+                      >
+                        Lifetime access
+                      </Text>
+                    </Box>
+                    <Text fontSize="xs" color="gray.500">
+                      No hidden fees. Cancel anytime.
+                    </Text>
+                    <Box borderTop="1px solid" borderColor="gray.100" />
+                    <VStack align="stretch" gap={3}>
+                      {plan.FEATURES.map((feature, idx) => (
+                        <HStack
+                          key={`${plan.NAME}-feature-${idx}`}
+                          gap={3}
+                          align="center"
+                          borderTop={idx === 0 ? "none" : "1px solid"}
+                          borderColor={idx === 0 ? "transparent" : "gray.100"}
+                          pt={idx === 0 ? 0 : 3}
+                          pb={2}
+                        >
+                          <Icon as={FaCheckCircle} color="green.400" />
+                          <Text color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}>
+                            {feature.text}
+                          </Text>
+                        </HStack>
+                      ))}
+                    </VStack>
+                  </Stack>
+
+                  {/* Active plan ribbon */}
+                  {isPremium &&
+                    plan.NAME.toLowerCase() ===
+                      (membershipType || "").toLowerCase() && (
+                      <Badge
+                        position="absolute"
+                        top={3}
+                        right={3}
+                        colorScheme={
+                          membershipType === "gold" ? "yellow" : "gray"
+                        }
+                        borderRadius="full"
+                        px={3}
+                        py={1}
+                      >
+                        Active
+                      </Badge>
+                    )}
+
+                  {isPremium &&
+                  plan.NAME.toLowerCase() ===
+                    (membershipType || "").toLowerCase() ? (
+                    <Button
+                      colorScheme="gray"
+                      size="lg"
+                      w="full"
+                      mt="auto"
+                      disabled
+                    >
+                      Active
+                    </Button>
+                  ) : (
+                    <Button
+                      colorScheme="purple"
+                      size="lg"
+                      w="full"
+                      mt="4"
+                      _hover={{ transform: "translateX(2px)" }}
+                      onClick={() =>
+                        handlePayment(plan.NAME as "silver" | "gold")
+                      }
+                    >
+                      <HStack w="full" justify="center">
+                        <Text>{plan.CTA}</Text>
+                        <Icon as={FaChevronRight} />
+                      </HStack>
+                    </Button>
+                  )}
+                </Box>
               </Box>
             ))
           )}
@@ -413,47 +534,33 @@ export default function Premium() {
           mt={{ base: 12, md: 16 }}
           p={{ base: 8, md: 12 }}
           borderRadius={THEME_CONSTANTS.RADIUS.XL}
-          bgGradient="linear(to-r, purple.500, blue.500)"
-          color="white"
+          bg="white"
+          border="1px solid"
+          borderColor="gray.100"
+          boxShadow="md"
+          color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
           textAlign="center"
           position="relative"
           overflow="hidden"
         >
-          <Box
-            display="inline-flex"
-            alignItems="center"
-            justifyContent="center"
-            px={{ base: 4, md: 6 }}
-            py={{ base: 2, md: 3 }}
-            bg={THEME_CONSTANTS.COLORS.WHITE}
-            borderRadius="full"
-            boxShadow="0 10px 25px rgba(0, 0, 0, 0.15)"
-            mx="auto"
-            mb={4}
-          >
-            <Heading
-              size="lg"
-              m={0}
-              color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
-            >
-              Go premium and stay ahead of the queue
-            </Heading>
-          </Box>
+          <Heading size="lg" m={0}>
+            Go premium and stay ahead of the queue
+          </Heading>
           <Text
             maxW="3xl"
             mx="auto"
-            color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
-            bg="white"
+            color={THEME_CONSTANTS.COLORS.TEXT_SECONDARY}
             px={{ base: 4, md: 6 }}
             py={{ base: 3, md: 4 }}
-            borderRadius="lg"
-            mb={6}
-            boxShadow="0 12px 30px rgba(0, 0, 0, 0.15)"
+            mb={2}
             fontWeight="medium"
           >
             Silver grants you direct chats and 100 connection requests each day.
             Gold adds a blue verification tick and removes the request limit
             entirely so you can connect without friction.
+          </Text>
+          <Text color="green.600" fontWeight="semibold" mb={6}>
+            7‑day money‑back guarantee. Cancel anytime.
           </Text>
           <HStack
             gap={{ base: 3, md: 6 }}
@@ -469,28 +576,22 @@ export default function Premium() {
             ].map((perk) => (
               <HStack
                 key={perk.label}
-                bg="white"
+                bg="gray.50"
                 borderRadius="full"
                 px={{ base: 3, md: 4 }}
                 py={{ base: 1.5, md: 2 }}
-                boxShadow="0 10px 25px rgba(0,0,0,0.15)"
                 border="1px solid"
-                borderColor="gray.100"
+                borderColor="gray.200"
                 color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}
                 gap={2}
+                transition="all 200ms ease"
+                _hover={{ transform: "translateY(-2px)", boxShadow: "xl" }}
               >
                 <perk.icon color={THEME_CONSTANTS.COLORS.PRIMARY} />
                 <Text>{perk.label}</Text>
               </HStack>
             ))}
           </HStack>
-          <Button
-            onClick={() => navigate("/signup")}
-            size="lg"
-            colorScheme="blackAlpha"
-          >
-            Create Premium Profile
-          </Button>
         </Box>
       </Container>
 
