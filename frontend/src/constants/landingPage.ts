@@ -207,6 +207,8 @@ export const LANDING_PAGE_CONSTANTS = {
     FORM: {
       FIRST_NAME_LABEL: "First Name",
       FIRST_NAME_PLACEHOLDER: "John",
+      LAST_NAME_LABEL: "Last Name",
+      LAST_NAME_PLACEHOLDER: "Doe",
       EMAIL_LABEL: "Email",
       EMAIL_PLACEHOLDER: "you@example.com",
       PASSWORD_LABEL: "Password",

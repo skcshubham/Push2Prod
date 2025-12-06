@@ -21,6 +21,7 @@ import { THEME_CONSTANTS } from "../theme/constants";
 export default function SignUp() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,7 +30,7 @@ export default function SignUp() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await signup({ firstName, emailId, password }).unwrap();
+      await signup({ firstName, lastName, emailId, password }).unwrap();
       navigate("/signin");
     } catch (err) {
       console.error("Signup failed:", err);
@@ -142,6 +143,36 @@ export default function SignUp() {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder={LANDING_PAGE_CONSTANTS.SIGN_UP.FORM.FIRST_NAME_PLACEHOLDER}
+                  size="lg"
+                  h={12}
+                  borderColor="gray.200"
+                  fontSize="md"
+                  _hover={{
+                    borderColor: "gray.300",
+                  }}
+                  _focus={{
+                    borderColor: "purple.500",
+                    boxShadow: "0 0 0 3px rgba(138, 43, 226, 0.1)",
+                  }}
+                  _placeholder={{
+                    color: "gray.400",
+                  }}
+                  transition="all 0.2s ease"
+                  required
+                  disabled={isLoading}
+                />
+              </Stack>
+
+              <Stack gap={2}>
+                <Text fontSize="sm" fontWeight="medium" color={THEME_CONSTANTS.COLORS.TEXT_PRIMARY}>
+                  {LANDING_PAGE_CONSTANTS.SIGN_UP.FORM.LAST_NAME_LABEL}
+                </Text>
+                <Input
+                  type="text"
+                  name="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder={LANDING_PAGE_CONSTANTS.SIGN_UP.FORM.LAST_NAME_PLACEHOLDER}
                   size="lg"
                   h={12}
                   borderColor="gray.200"
