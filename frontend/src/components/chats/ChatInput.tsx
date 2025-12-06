@@ -33,7 +33,7 @@ export default function ChatInput({
           onChange={(e) => onMessageChange(e.target.value)}
           onKeyPress={handleKeyPress}
           borderRadius="full"
-          size={{ base: "sm", md: "md" }}
+          size="md"
           flex={1}
           fontSize={{ base: "sm", md: "md" }}
         />
@@ -42,11 +42,11 @@ export default function ChatInput({
           borderRadius="full"
           aria-label="Send message"
           onClick={onSend}
-          isDisabled={!message.trim()}
-          size={{ base: "sm", md: "md" }}
+          disabled={!message.trim()}
+          size="md"
           flexShrink={0}
         >
-          <FaPaperPlane fontSize={{ base: "12px", md: "14px" }} />
+          <FaPaperPlane style={{ fontSize: "14px" }} />
         </IconButton>
       </HStack>
     </Box>

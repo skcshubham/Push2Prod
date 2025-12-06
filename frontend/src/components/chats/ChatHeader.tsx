@@ -1,6 +1,5 @@
 import {
   HStack,
-  Heading,
   IconButton,
   Image,
   Text,
@@ -42,15 +41,16 @@ export default function ChatHeader({ user, onClose }: ChatHeaderProps) {
           flexShrink={0}
         />
         <VStack align="start" gap={0} flex={1} minW={0}>
-          <Heading
-            size={{ base: "xs", md: "sm" }}
+          <Text
+            fontSize={{ base: "xs", md: "sm" }}
+            fontWeight="semibold"
             color="gray.800"
             noOfLines={1}
             overflow="hidden"
             textOverflow="ellipsis"
           >
             {user.firstName} {user.lastName}
-          </Heading>
+          </Text>
           <Text
             fontSize={{ base: "2xs", md: "xs" }}
             color="green.600"
@@ -62,7 +62,7 @@ export default function ChatHeader({ user, onClose }: ChatHeaderProps) {
       </HStack>
       <IconButton
         variant="ghost"
-        size={{ base: "sm", md: "md" }}
+        size="md"
         onClick={onClose}
         aria-label="Close chat"
         flexShrink={0}

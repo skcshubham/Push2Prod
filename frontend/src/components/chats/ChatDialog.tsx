@@ -39,7 +39,7 @@ export default function ChatDialog({
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [getChat, { isLoading: isLoadingChat }] = useLazyGetChatQuery();
+  const [getChat] = useLazyGetChatQuery();
 
   // Scroll to bottom when messages change
   useEffect(() => {
