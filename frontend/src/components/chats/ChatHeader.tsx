@@ -45,9 +45,9 @@ export default function ChatHeader({ user, onClose }: ChatHeaderProps) {
             fontSize={{ base: "xs", md: "sm" }}
             fontWeight="semibold"
             color="gray.800"
-            noOfLines={1}
             overflow="hidden"
             textOverflow="ellipsis"
+            whiteSpace="nowrap"
           >
             {user.firstName} {user.lastName}
           </Text>
