@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import type { User } from "../types/user.types";
 
-const API_BASE_URL =
+export const API_BASE_URL =
   location.hostname === "localhost" ? `http://localhost:8000` : `/api`;
 
 export const api = createApi({
@@ -120,6 +120,28 @@ export const api = createApi({
         method: "GET",
       }),
     }),
+    getChat: builder.query<
+      {
+        message: string;
+        data: {
+          _id: string;
+          participants: string[];
+          messages: Array<{
+            _id: string;
+            senderId: { _id: string; firstName: string; lastName: string };
+            text: string;
+            createdAt: string;
+            updatedAt: string;
+          }>;
+        };
+      },
+      string
+    >({
+      query: (targetUserId) => ({
+        url: `/chat/${targetUserId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -136,4 +158,6 @@ export const {
   useRespondToRequestMutation,
   useCreateOrderMutation,
   useVerifyPremiumUserMutation,
+  useGetChatQuery,
+  useLazyGetChatQuery,
 } = api;
