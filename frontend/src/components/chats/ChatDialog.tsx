@@ -193,16 +193,6 @@ export default function ChatDialog({
         zIndex={{ base: 1100, md: "auto" }}
         inset={{ base: 0, md: "auto" }}
         overflow="hidden"
-        style={{
-          height: "100vh",
-          maxHeight: "100vh",
-        }}
-        sx={{
-          "@supports (height: 100dvh)": {
-            height: "100dvh",
-            maxHeight: "100dvh",
-          },
-        }}
       >
         <ChatHeader user={selectedChatUser} onClose={onClose} />
 
