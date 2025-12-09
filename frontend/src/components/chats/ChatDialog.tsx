@@ -207,7 +207,7 @@ export default function ChatDialog({
           gap={{ base: 2, md: 3 }}
           minH={0}
           flexBasis={0}
-          pb={{ base: "80px", md: 4 }}
+          pb={{ base: "90px", md: 4 }}
           style={{
             WebkitOverflowScrolling: "touch",
           }}
@@ -221,11 +221,20 @@ export default function ChatDialog({
           <div ref={messagesEndRef} />
         </Box>
 
-        <ChatInput
-          message={message}
-          onMessageChange={onMessageChange}
-          onSend={handleSendMessage}
-        />
+        <Box
+          position={{ base: "absolute", md: "relative" }}
+          bottom={{ base: 0, md: "auto" }}
+          left={{ base: 0, md: "auto" }}
+          right={{ base: 0, md: "auto" }}
+          width="100%"
+          zIndex={30}
+        >
+          <ChatInput
+            message={message}
+            onMessageChange={onMessageChange}
+            onSend={handleSendMessage}
+          />
+        </Box>
       </Dialog.Content>
     </Dialog.Root>
   );
