@@ -22,16 +22,16 @@ export default function ChatInput({
     <Box
       borderTop="1px solid"
       borderColor="gray.200"
-      p={{ base: 3, md: 4 }}
       bg="white"
       flexShrink={0}
-      position={{ base: "relative", md: "relative" }}
-      bottom={{ base: 0, md: "auto" }}
+      position="relative"
       zIndex={20}
-      pb={{ base: "max(16px, env(safe-area-inset-bottom, 16px))", md: 4 }}
-      pt={{ base: 3, md: 4 }}
       width="100%"
       boxShadow={{ base: "0 -2px 8px rgba(0,0,0,0.1)", md: "none" }}
+      px={{ base: 3, md: 4 }}
+      pt={{ base: 3, md: 4 }}
+      pb={{ base: "max(16px, calc(16px + env(safe-area-inset-bottom, 0px)))", md: 4 }}
+      minH={{ base: "70px", md: "auto" }}
     >
       <HStack gap={{ base: 2, md: 3 }}>
         <Input

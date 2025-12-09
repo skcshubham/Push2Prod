@@ -192,6 +192,17 @@ export default function ChatDialog({
         bottom={{ base: 0, md: "auto" }}
         zIndex={{ base: 1100, md: "auto" }}
         inset={{ base: 0, md: "auto" }}
+        overflow="hidden"
+        style={{
+          height: "100vh",
+          maxHeight: "100vh",
+        }}
+        sx={{
+          "@supports (height: 100dvh)": {
+            height: "100dvh",
+            maxHeight: "100dvh",
+          },
+        }}
       >
         <ChatHeader user={selectedChatUser} onClose={onClose} />
 
@@ -206,6 +217,10 @@ export default function ChatDialog({
           gap={{ base: 2, md: 3 }}
           minH={0}
           flexBasis={0}
+          pb={{ base: "80px", md: 4 }}
+          style={{
+            WebkitOverflowScrolling: "touch",
+          }}
         >
           <ChatMessages
             messages={messages}
