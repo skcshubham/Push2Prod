@@ -172,7 +172,10 @@ export default function ChatDialog({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(e) => !e.open && onClose()}>
-      <Dialog.Backdrop />
+      <Dialog.Backdrop 
+        bg={{ base: "transparent", md: "rgba(0, 0, 0, 0.5)" }}
+        zIndex={{ base: 1099, md: "auto" }}
+      />
       <Dialog.Content
         w={{ base: "100vw", sm: "95vw", md: "500px", lg: "600px" }}
         h={{ base: "100vh", sm: "90vh", md: "600px", lg: "700px" }}
@@ -187,7 +190,8 @@ export default function ChatDialog({
         left={{ base: 0, md: "auto" }}
         right={{ base: 0, md: "auto" }}
         bottom={{ base: 0, md: "auto" }}
-        zIndex={{ base: 1000, md: "auto" }}
+        zIndex={{ base: 1100, md: "auto" }}
+        inset={{ base: 0, md: "auto" }}
       >
         <ChatHeader user={selectedChatUser} onClose={onClose} />
 
@@ -201,7 +205,7 @@ export default function ChatDialog({
           flexDirection="column"
           gap={{ base: 2, md: 3 }}
           minH={0}
-          maxH={{ base: "calc(100vh - 180px)", md: "none" }}
+          flexBasis={0}
         >
           <ChatMessages
             messages={messages}

@@ -25,12 +25,13 @@ export default function ChatInput({
       p={{ base: 3, md: 4 }}
       bg="white"
       flexShrink={0}
-      position={{ base: "sticky", md: "relative" }}
+      position={{ base: "relative", md: "relative" }}
       bottom={{ base: 0, md: "auto" }}
-      zIndex={10}
-      pb={{ base: "max(12px, env(safe-area-inset-bottom))", md: 4 }}
+      zIndex={20}
+      pb={{ base: "max(16px, env(safe-area-inset-bottom, 16px))", md: 4 }}
       pt={{ base: 3, md: 4 }}
       width="100%"
+      boxShadow={{ base: "0 -2px 8px rgba(0,0,0,0.1)", md: "none" }}
     >
       <HStack gap={{ base: 2, md: 3 }}>
         <Input
