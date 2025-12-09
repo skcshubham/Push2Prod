@@ -124,12 +124,12 @@ export default function ChatDialog({
             return prev;
           }
 
-          const newMessage: Message = {
-            id: Date.now().toString() + Math.random().toString(),
-            text: data.message,
-            senderId: data.currentUserId,
-            timestamp: new Date(),
-          };
+        const newMessage: Message = {
+          id: Date.now().toString() + Math.random().toString(),
+          text: data.message,
+          senderId: data.currentUserId,
+          timestamp: new Date(),
+        };
           return [...prev, newMessage];
         });
       }
@@ -187,18 +187,21 @@ export default function ChatDialog({
         left={{ base: 0, md: "auto" }}
         right={{ base: 0, md: "auto" }}
         bottom={{ base: 0, md: "auto" }}
+        zIndex={{ base: 1000, md: "auto" }}
       >
         <ChatHeader user={selectedChatUser} onClose={onClose} />
 
         <Box
           flex={1}
           overflowY="auto"
+          overflowX="hidden"
           p={{ base: 3, md: 4 }}
           bg="gray.50"
           display="flex"
           flexDirection="column"
           gap={{ base: 2, md: 3 }}
           minH={0}
+          maxH={{ base: "calc(100vh - 180px)", md: "none" }}
         >
           <ChatMessages
             messages={messages}
