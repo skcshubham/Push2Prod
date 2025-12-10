@@ -24,13 +24,15 @@ export default function ChatInput({
       borderColor="gray.200"
       bg="white"
       flexShrink={0}
-      position="relative"
       zIndex={20}
       width="100%"
       boxShadow={{ base: "0 -2px 8px rgba(0,0,0,0.1)", md: "none" }}
       px={{ base: 3, md: 4 }}
       pt={{ base: 3, md: 4 }}
-      pb={{ base: "max(16px, calc(16px + env(safe-area-inset-bottom, 0px)))", md: 4 }}
+      pb={{
+        base: "max(16px, calc(16px + env(safe-area-inset-bottom, 0px)))",
+        md: 4,
+      }}
       minH={{ base: "70px", md: "auto" }}
     >
       <HStack gap={{ base: 2, md: 3 }}>
@@ -59,4 +61,3 @@ export default function ChatInput({
     </Box>
   );
 }
-

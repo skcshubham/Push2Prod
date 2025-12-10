@@ -65,7 +65,10 @@ export default function ChatDialog({
             .map((msg) => ({
               id: msg._id,
               text: msg.text,
-              senderId: typeof msg.senderId === 'object' ? msg.senderId._id : msg.senderId,
+              senderId:
+                typeof msg.senderId === "object"
+                  ? msg.senderId._id
+                  : msg.senderId,
               timestamp: new Date(msg.createdAt),
             }))
             .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
@@ -124,12 +127,12 @@ export default function ChatDialog({
             return prev;
           }
 
-        const newMessage: Message = {
-          id: Date.now().toString() + Math.random().toString(),
-          text: data.message,
-          senderId: data.currentUserId,
-          timestamp: new Date(),
-        };
+          const newMessage: Message = {
+            id: Date.now().toString() + Math.random().toString(),
+            text: data.message,
+            senderId: data.currentUserId,
+            timestamp: new Date(),
+          };
           return [...prev, newMessage];
         });
       }
@@ -172,7 +175,7 @@ export default function ChatDialog({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(e) => !e.open && onClose()}>
-      <Dialog.Backdrop 
+      <Dialog.Backdrop
         bg={{ base: "transparent", md: "rgba(0, 0, 0, 0.5)" }}
         zIndex={{ base: 1099, md: "auto" }}
       />
@@ -207,7 +210,10 @@ export default function ChatDialog({
           gap={{ base: 2, md: 3 }}
           minH={0}
           flexBasis={0}
-          pb={{ base: "90px", md: 4 }}
+          pb={{
+            base: "190px",
+            md: 4,
+          }}
           style={{
             WebkitOverflowScrolling: "touch",
           }}
@@ -222,7 +228,7 @@ export default function ChatDialog({
         </Box>
 
         <Box
-          position={{ base: "absolute", md: "relative" }}
+          position={{ base: "fixed", md: "relative" }}
           bottom={{ base: 0, md: "auto" }}
           left={{ base: 0, md: "auto" }}
           right={{ base: 0, md: "auto" }}
